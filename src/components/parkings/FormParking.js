@@ -17,7 +17,9 @@ function FormParking(props) {
     const parkingId = props.match.params.parking;
 
     useEffect(() => {
-        dispatch(getUsers()).then(res => {
+        dispatch(getUsers({
+            tipo: 'Dono'
+        })).then(res => {
             setGetUsersLoading(false);
         })
     }, [dispatch]);

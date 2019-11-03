@@ -1,8 +1,8 @@
 import { base_api_url, Axios } from './config';
 
-export const getUsers = () => {
+export const getUsers = (filters = null) => {
     return (dispatch) => {
-        return Axios.get(`${base_api_url}usuarios`).then(({data}) => {
+        return Axios.get(`${base_api_url}usuarios`, { params: { filters }}).then(({data}) => {
             dispatch({
                 type: 'USERS_GET',
                 payload: data

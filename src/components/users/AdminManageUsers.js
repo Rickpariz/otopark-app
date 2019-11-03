@@ -15,7 +15,9 @@ export default function AdminManageUsers(props) {
     const [getUsersLoading, setGetUsersLoading] = useState(true);
 
     useEffect(() => {
-        dispatch(getUsers()).then(res => {
+        dispatch(getUsers({
+            tipo: 'Dono'
+        })).then(res => {
             setGetUsersLoading(false);
         })
     }, [dispatch])
