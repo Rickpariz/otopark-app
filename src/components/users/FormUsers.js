@@ -20,7 +20,7 @@ function FormUsers(props) {
                 setRequestLoading(false);
             });
         }
-    }, [userId])
+    }, [dispatch, userId])
 
 
     const goBack = () => {

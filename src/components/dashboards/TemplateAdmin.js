@@ -2,6 +2,7 @@ import React from 'react'
 import { Layout, Menu, Icon, Typography } from 'antd';
 import { Route, Switch } from 'react-router-dom';
 import AdminManageUsers from '../users/AdminManageUsers';
+import AdminManageParkings from '../parkings/AdminManageParkings';
 
 const { Header, Content, Footer, Sider } = Layout;
 // const { SubMenu } = Menu;
@@ -32,6 +33,10 @@ export default function TemplateAdmin(props) {
                         <Icon type="user" />
                         <span className="nav-text">Donos</span>
                     </Menu.Item>
+                    <Menu.Item key="3" onClick={() => history.push('/admin/dashboard/estacionamentos')}>
+                        <Icon type="cluster" />
+                        <span className="nav-text">Estacionamentos</span>
+                    </Menu.Item>
                 </Menu>
             </Sider>
             <Layout>
@@ -43,6 +48,7 @@ export default function TemplateAdmin(props) {
                         )}/>
 
                         <Route path='/admin/dashboard/usuarios' component={AdminManageUsers}/>
+                        <Route path='/admin/dashboard/estacionamentos' component={AdminManageParkings}/>
                     </Switch>
                     
                     {/* <Breadcrumb style={{ margin: '16px 0' }}>
