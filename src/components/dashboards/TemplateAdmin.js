@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Menu, Breadcrumb, Icon, Typography } from 'antd';
+import { Layout, Menu, Icon, Typography } from 'antd';
 import { Route, Switch } from 'react-router-dom';
 import AdminManageUsers from '../users/AdminManageUsers';
 
@@ -30,7 +30,7 @@ export default function TemplateAdmin(props) {
                     </Menu.Item>
                     <Menu.Item key="2" onClick={() => history.push('/admin/dashboard/usuarios')}>
                         <Icon type="user" />
-                        <span className="nav-text">Usuários</span>
+                        <span className="nav-text">Donos</span>
                     </Menu.Item>
                 </Menu>
             </Sider>
@@ -42,7 +42,7 @@ export default function TemplateAdmin(props) {
                             <Title> Dashboard </Title>
                         )}/>
 
-                        <Route exact path='/admin/dashboard/usuarios' component={AdminManageUsers}/>
+                        <Route path='/admin/dashboard/usuarios' component={AdminManageUsers}/>
                     </Switch>
                     
                     {/* <Breadcrumb style={{ margin: '16px 0' }}>
