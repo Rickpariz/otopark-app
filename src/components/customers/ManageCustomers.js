@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUsers } from '../../handlers/users';
 import { Route, Switch } from 'react-router-dom';
 import { getCustomers } from '../../handlers/customers';
+import FormCustomers from './FormCustomers';
 
 const { Title } = Typography;
 const ButtonGroup = Button.Group;
@@ -57,7 +58,7 @@ export default function ManageCustomers(props) {
                         render: (value, row) => (
                             <span>
                                 <ButtonGroup>
-                                    <Button icon="edit" onClick={() => history.push(`/dashboard/funcionarios/editar/${row._id}`)}/>
+                                    <Button icon="edit" onClick={() => history.push(`/dashboard/clientes/editar/${row._id}`)}/>
                                     <Button icon="delete" />
                                 </ButtonGroup>
                             </span>
@@ -66,21 +67,21 @@ export default function ManageCustomers(props) {
                 ]}
             />
 
-            {/* <Switch>
+            <Switch>
                 <Route
-                    path={['/admin/dashboard/usuarios/novo']}
+                    path={['/dashboard/clientes/novo']}
                     render={(router) => {
-                        return <FormUsers {...router} {...props} type='create' />
+                        return <FormCustomers {...router} {...props} type='create' />
                     }}
                 />
 
                 <Route
-                    path={['/admin/dashboard/usuarios/editar/:usuario']}
+                    path={['/dashboard/clientes/editar/:customer']}
                     render={(router) => {
-                        return <FormUsers {...props} {...router} type='update' />
+                        return <FormCustomers {...props} {...router} type='update' />
                     }}
                 />
-            </Switch> */}
+            </Switch>
         </div>
     )
 }

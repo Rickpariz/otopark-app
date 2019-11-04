@@ -8,7 +8,7 @@ export const getParkings = (filters = null) => {
                 payload: data
             })
 
-            return Promise.resolve();
+            return Promise.resolve(data);
         })
         .catch(err => {
             console.log(err)
@@ -24,7 +24,7 @@ export const createParking = (values) => {
                 payload: data
             })
 
-            return Promise.resolve();
+            return Promise.resolve(data);
         })
         .catch(err => {
             console.log(err)
@@ -40,7 +40,7 @@ export const getParking = (userId) => {
                 payload: data
             })
 
-            return Promise.resolve();
+            return Promise.resolve(data);
         })
         .catch(err => {
             console.log(err)
@@ -56,7 +56,7 @@ export const updateParking = (values) => {
                 payload: data
             })
 
-            return Promise.resolve();
+            return Promise.resolve(data);
         })
         .catch(err => {
             console.log(err)

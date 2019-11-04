@@ -8,7 +8,7 @@ export const getCustomers = (filters = null) => {
                 payload: data
             })
 
-            return Promise.resolve();
+            return Promise.resolve(data);
         })
         .catch(err => {
             console.log(err)
@@ -24,7 +24,7 @@ export const createCustomer = (values) => {
                 payload: data
             })
 
-            return Promise.resolve();
+            return Promise.resolve(data);
         })
         .catch(err => {
             console.log(err)
@@ -40,7 +40,7 @@ export const getCustomer = (customerId) => {
                 payload: data
             })
 
-            return Promise.resolve();
+            return Promise.resolve(data);
         })
         .catch(err => {
             console.log(err)
@@ -56,7 +56,7 @@ export const updateCustomer = (values) => {
                 payload: data
             })
 
-            return Promise.resolve();
+            return Promise.resolve(data);
         })
         .catch(err => {
             console.log(err)

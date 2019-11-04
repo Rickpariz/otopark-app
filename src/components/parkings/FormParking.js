@@ -20,7 +20,7 @@ function FormParking(props) {
         dispatch(getUsers({
             tipo: 'Dono'
         })).then(res => {
-            setGetUsersLoading(false);
+            if(res) setGetUsersLoading(false);
         })
     }, [dispatch]);
 
@@ -47,10 +47,12 @@ function FormParking(props) {
                 setRequestLoading(true);
                 dispatch(createParking(values)).then(res => {
                     setRequestLoading(false);
-                    goBack();
-                    notification.success({
-                        message: 'Dono cadastrado com sucesso'
-                    })
+                    if(res){
+                        goBack();
+                        notification.success({
+                            message: 'Estacionamento cadastrado com sucesso'
+                        })
+                    }
                 });
             }
         })
@@ -65,10 +67,12 @@ function FormParking(props) {
                     estacionamento: parking._id
                 })).then(res => {
                     setRequestLoading(false);
-                    goBack();
-                    notification.success({
-                        message: `${parking.nome} atualizado com sucesso`
-                    })
+                    if(res){
+                        goBack();
+                        notification.success({
+                            message: `${parking.nome} atualizado com sucesso`
+                        })
+                    }
                 });
             }
         })
@@ -76,10 +80,9 @@ function FormParking(props) {
 
     const title = type === 'create' ? 'Novo estacionamento' : 'Editar estacionamento';
 
-    console.log(parking);
     return (
         <Modal visible={modal} title={title} width="790px" onCancel={goBack} footer={null}>
-            <Spin spinning={false}>
+            <Spin spinning={getUsersLoading}>
                 <Form>
                     <Row gutter={22}>
                         <Col lg={12}>
@@ -89,7 +92,7 @@ function FormParking(props) {
                                     rules: [{ required: true, message: 'Preencha o nome do estacionamento' }],
                                 })(
                                     <Input
-                                        prefix={<Icon type="font-colors" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                        prefix={<Icon theme="twoTone" type="font-colors" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                         placeholder='Nome do estacionamento'
                                     />
                                 )}
@@ -102,7 +105,7 @@ function FormParking(props) {
                                     rules: [{ required: true, message: 'Preencha o endereço do estacionamento' }],
                                 })(
                                     <Input
-                                        prefix={<Icon type="pic-center" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                        prefix={<Icon theme="twoTone" type="pic-center" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                         placeholder='Endereeço do estacionamento'
                                     />
                                 )}
@@ -119,7 +122,7 @@ function FormParking(props) {
                                 })(
                                     <Input
                                         placeholder={'Quantidade de vagas'}
-                                        prefix={<Icon type="number" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                        prefix={<Icon theme="twoTone" type="number" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                     />
                                 )}
                             </Form.Item>

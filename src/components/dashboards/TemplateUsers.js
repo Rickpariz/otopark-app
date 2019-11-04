@@ -26,16 +26,16 @@ export default function TemplateUsers(props) {
                     margin: '16px'
                 }} />
 
-                <Menu theme="dark" mode="inline" defaultSelectedKeys='1'>
+                <Menu theme="dark" mode="inline" defaultSelectedKeys={'1'}>
                     <Menu.Item key="1" onClick={() => history.push('/dashboard')}>
                         <Icon type="dashboard" />
                         <span className="nav-text">Dashboard</span>
                     </Menu.Item>
                     {/* <Menu.Item key="2" onClick={() => history.push('/dashboard/funcionarios')}>
-                        <Icon type="user" />
+                        <Icon theme="twoTone" type="user" />
                         <span className="nav-text">Funcionários</span>
                     </Menu.Item> */}
-                    <Menu.Item key="3" onClick={() => history.push('/dashboard/clientes')}>
+                    <Menu.Item key="2" onClick={() => history.push('/dashboard/clientes')}>
                         <Icon type="user" />
                         <span className="nav-text">Clientes</span>
                     </Menu.Item>

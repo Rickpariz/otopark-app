@@ -43,7 +43,7 @@ function Login({ form, history }) {
                             rules: [{ required: true, message: 'Preencha o email' }],
                         })(
                             <Input
-                                prefix={<Icon type="google" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                prefix={<Icon theme="twoTone" type="google" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                 placeholder='Email'
                             />
                         )}
@@ -54,7 +54,7 @@ function Login({ form, history }) {
                         })(
                             <Input
                                 type='password'
-                                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                prefix={<Icon theme="twoTone" type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                 placeholder='Senha'
                             />
                         )}
