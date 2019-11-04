@@ -1,5 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
+import { notification } from 'antd';
 const base_api_url = 'http://localhost:3003/';
 
 const Axios = axios;
@@ -14,6 +15,38 @@ Axios.interceptors.request.use((config) => {
 
     return config;
 
-}, (error) => { });
+}, (error) => {
+    return error;
+ });
+
+ Axios.interceptors.response.use((response) => {
+    return response;
+}, (error) => {
+    if(error && error.response && error.response.status) {
+        switch(error.response.status) {
+            case 412: 
+                notification.info({
+                    message: error.response.data,
+                });
+                break;
+            case 500:
+                notification.error({
+                    message: error.response.data || 'Erro ao processar dados'
+                });
+                break;
+            default:
+                notification.error({
+                    message: 'Erro no servidor'
+                });
+                break;
+        }
+    } else {
+        notification.error({
+            message: 'Erro ao processar dados'
+        });
+    }
+
+    return Promise.reject(error);
+});
 
 export { Axios, base_api_url };

@@ -1,10 +1,10 @@
 import { base_api_url, Axios } from './config';
 
-export const getParkings = (filters = null) => {
+export const getCustomers = (filters = null) => {
     return (dispatch) => {
-        return Axios.get(`${base_api_url}estacionamentos`, { params: { filters }}).then(({data}) => {
+        return Axios.get(`${base_api_url}clientes`, { params: { filters }}).then(({data}) => {
             dispatch({
-                type: 'PARKINGS_GET',
+                type: 'CUSTOMERS_GET',
                 payload: data
             })
 
@@ -16,11 +16,11 @@ export const getParkings = (filters = null) => {
     }
 }
 
-export const createParking = (values) => {
+export const createCustomer = (values) => {
     return (dispatch) => {
-        return Axios.post(`${base_api_url}estacionamentos`, values).then(({ data }) => {
+        return Axios.post(`${base_api_url}clientes`, values).then(({ data }) => {
             dispatch({
-                type: 'PARKINGS_CREATE',
+                type: 'CUSTOMERS_CREATE',
                 payload: data
             })
 
@@ -32,11 +32,11 @@ export const createParking = (values) => {
     }
 }
 
-export const getParking = (userId) => {
+export const getCustomer = (customerId) => {
     return (dispatch) => {
-        return Axios.get(`${base_api_url}estacionamentos/${userId}`).then(({ data }) => {
+        return Axios.get(`${base_api_url}clientes/${customerId}`).then(({ data }) => {
             dispatch({
-                type: 'PARKINGS_GET_ONE',
+                type: 'CUSTOMERS_GET_ONE',
                 payload: data
             })
 
@@ -48,11 +48,11 @@ export const getParking = (userId) => {
     }
 }
 
-export const updateParking = (values) => {
+export const updateCustomer = (values) => {
     return (dispatch) => {
-        return Axios.put(`${base_api_url}estacionamentos`, values).then(({ data }) => {
+        return Axios.put(`${base_api_url}clientes`, values).then(({ data }) => {
             dispatch({
-                type: 'PARKINGS_UPDATE',
+                type: 'CUSTOMERS_UPDATE',
                 payload: data
             })
 
