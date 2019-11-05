@@ -26,15 +26,15 @@ export default function TemplateAdmin(props) {
 
                 <Menu theme="dark" mode="inline" defaultSelectedKeys='1'>
                     <Menu.Item key="1" onClick={() => history.push('/admin/dashboard')}>
-                        <Icon theme="twoTone" type="dashboard" />
+                        <Icon type="dashboard" />
                         <span className="nav-text">Dashboard</span>
                     </Menu.Item>
                     <Menu.Item key="2" onClick={() => history.push('/admin/dashboard/usuarios')}>
-                        <Icon theme="twoTone" type="user" />
+                        <Icon type="user" />
                         <span className="nav-text">Donos</span>
                     </Menu.Item>
                     <Menu.Item key="3" onClick={() => history.push('/admin/dashboard/estacionamentos')}>
-                        <Icon theme="twoTone" type="cluster" />
+                        <Icon type="cluster" />
                         <span className="nav-text">Estacionamentos</span>
                     </Menu.Item>
                 </Menu>

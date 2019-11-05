@@ -82,7 +82,7 @@ function FormUsers(props) {
                                     rules: [{ required: true, message: 'Preencha o nome do usuário' }],
                                 })(
                                     <Input
-                                        prefix={<Icon theme="twoTone" type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                        prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                         placeholder='Nome do usuário'
                                     />
                                 )}
@@ -95,7 +95,7 @@ function FormUsers(props) {
                                     rules: [{ required: true, message: 'Preencha o email do usuário' }],
                                 })(
                                     <Input
-                                        prefix={<Icon theme="twoTone" type="google" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                        prefix={<Icon type="google" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                         placeholder='Email do usuário'
                                     />
                                 )}
@@ -114,7 +114,7 @@ function FormUsers(props) {
                                         <Input
                                             type='password'
                                             placeholder={'Senha do usuário'}
-                                            prefix={<Icon theme="twoTone" type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                         />
                                     )}
                                 </Form.Item>

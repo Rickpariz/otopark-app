@@ -92,7 +92,7 @@ function FormParking(props) {
                                     rules: [{ required: true, message: 'Preencha o nome do estacionamento' }],
                                 })(
                                     <Input
-                                        prefix={<Icon theme="twoTone" type="font-colors" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                        prefix={<Icon type="font-colors" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                         placeholder='Nome do estacionamento'
                                     />
                                 )}
@@ -105,7 +105,7 @@ function FormParking(props) {
                                     rules: [{ required: true, message: 'Preencha o endereço do estacionamento' }],
                                 })(
                                     <Input
-                                        prefix={<Icon theme="twoTone" type="pic-center" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                        prefix={<Icon type="pic-center" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                         placeholder='Endereeço do estacionamento'
                                     />
                                 )}
@@ -122,7 +122,7 @@ function FormParking(props) {
                                 })(
                                     <Input
                                         placeholder={'Quantidade de vagas'}
-                                        prefix={<Icon theme="twoTone" type="number" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                        prefix={<Icon type="number" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                     />
                                 )}
                             </Form.Item>
