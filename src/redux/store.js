@@ -6,13 +6,15 @@ import { UsersReducers } from './reducers/UsersReducer';
 import { ParkingsReducer } from './reducers/ParkingsReducer';
 import { SystemReducer } from './reducers/SystemReducer';
 import { CustomersReducer } from './reducers/CustomersReducer';
+import { VehiclesReducer } from './reducers/VehiclesReducer';
 
 
 const Reducers = combineReducers({
     users: UsersReducers,
     parkings: ParkingsReducer,
     system: SystemReducer,
-    customers: CustomersReducer
+    customers: CustomersReducer,
+    vehicles: VehiclesReducer
 });
 
 const persistConfig = {
