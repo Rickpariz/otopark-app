@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Typography, Table, Row, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsers } from '../../handlers/users';
 import { Route, Switch } from 'react-router-dom';
 import { getCustomers } from '../../handlers/customers';
 import FormCustomers from './FormCustomers';

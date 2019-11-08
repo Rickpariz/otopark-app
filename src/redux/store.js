@@ -7,6 +7,8 @@ import { ParkingsReducer } from './reducers/ParkingsReducer';
 import { SystemReducer } from './reducers/SystemReducer';
 import { CustomersReducer } from './reducers/CustomersReducer';
 import { VehiclesReducer } from './reducers/VehiclesReducer';
+import { LotsReducer } from './reducers/LotsReducer';
+import { TablePricesReducer } from './reducers/TablePriceReducer';
 
 
 const Reducers = combineReducers({
@@ -14,7 +16,9 @@ const Reducers = combineReducers({
     parkings: ParkingsReducer,
     system: SystemReducer,
     customers: CustomersReducer,
-    vehicles: VehiclesReducer
+    vehicles: VehiclesReducer,
+    lots: LotsReducer,
+    tablePrices: TablePricesReducer
 });
 
 const persistConfig = {

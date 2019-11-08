@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Typography, Table, Row, Button, Card, Icon, Avatar, Switch } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsers } from '../../handlers/users';
-import * as ReactRouter from 'react-router-dom';
-import { getCustomers } from '../../handlers/customers';
+// import * as ReactRouter from 'react-router-dom';
 import { getVehicles } from '../../handlers/vehicles';
 
 const { Title } = Typography;

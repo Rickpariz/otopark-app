@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Typography, Table, Row, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsers } from '../../handlers/users';
-import { Route, Switch } from 'react-router-dom';
-import FormUsers from './FormUsers';
+// import { Route, Switch } from 'react-router-dom';
+// import FormUsers from './FormUsers';
 
 const { Title } = Typography;
 const ButtonGroup = Button.Group;

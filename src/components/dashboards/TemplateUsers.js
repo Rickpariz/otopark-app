@@ -1,11 +1,10 @@
 import React from 'react'
 import { Layout, Menu, Icon, Typography } from 'antd';
 import { Route, Switch } from 'react-router-dom';
-import AdminManageUsers from '../users/AdminManageUsers';
-import AdminManageParkings from '../parkings/AdminManageParkings';
 import ManageEmployees from '../users/ManageEmployees';
 import ManageCustomers from '../customers/ManageCustomers';
 import ManageVehicles from '../vehicles/ManageVehicles';
+import ManageGarage from '../garage/ManageGarage';
 
 const { Header, Content, Footer, Sider } = Layout;
 // const { SubMenu } = Menu;
@@ -36,11 +35,15 @@ export default function TemplateUsers(props) {
                         <Icon type="user" />
                         <span className="nav-text">Funcionários</span>
                     </Menu.Item> */}
-                    <Menu.Item key="2" onClick={() => history.push('/dashboard/clientes')}>
+                    <Menu.Item key="2" onClick={() => history.push('/dashboard/garagem')}>
+                        <Icon type="container" />
+                        <span className="nav-text">Garagem</span>
+                    </Menu.Item>
+                    <Menu.Item key="3" onClick={() => history.push('/dashboard/clientes')}>
                         <Icon type="user" />
                         <span className="nav-text">Clientes</span>
                     </Menu.Item>
-                    <Menu.Item key="3" onClick={() => history.push('/dashboard/veiculos')}>
+                    <Menu.Item key="4" onClick={() => history.push('/dashboard/veiculos')}>
                         <Icon type="car" />
                         <span className="nav-text">Veiculos</span>
                     </Menu.Item>
@@ -54,6 +57,7 @@ export default function TemplateUsers(props) {
                             <Title> Dashboard </Title>
                         )}/>
 
+                        <Route path='/dashboard/garagem' component={ManageGarage}/>
                         <Route path='/dashboard/funcionarios' component={ManageEmployees}/>
                         <Route path='/dashboard/clientes' component={ManageCustomers}/>
                         <Route path='/dashboard/veiculos' component={ManageVehicles}/>
