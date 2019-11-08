@@ -9,6 +9,7 @@ import { CustomersReducer } from './reducers/CustomersReducer';
 import { VehiclesReducer } from './reducers/VehiclesReducer';
 import { LotsReducer } from './reducers/LotsReducer';
 import { TablePricesReducer } from './reducers/TablePriceReducer';
+import { ReservationsReducer } from './reducers/ReservationsReducer';
 
 
 const Reducers = combineReducers({
@@ -18,7 +19,8 @@ const Reducers = combineReducers({
     customers: CustomersReducer,
     vehicles: VehiclesReducer,
     lots: LotsReducer,
-    tablePrices: TablePricesReducer
+    tablePrices: TablePricesReducer,
+    reservations: ReservationsReducer
 });
 
 const persistConfig = {
