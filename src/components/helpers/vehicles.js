@@ -16,7 +16,7 @@ export const colors = [
         name: 'Cinza'
     },
     {
-        value: '0000FF',
+        value: '1890ff',
         name: 'Azul'
     },
     {

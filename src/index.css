@@ -37,3 +37,17 @@ code {
   justify-content: center;
   align-items: center;
 }
+
+.lot-item{
+  width: 100px;
+  height: 159px;
+  display: flex;
+  border-right: 1px solid #989494;
+  /* border-left: 0.5px solid rgb(250, 173, 20); */
+  padding: 10px 10px 0px 14px;
+  flex-wrap: wrap;
+  margin: 30px 0px;
+  justify-content: center;
+  transform: rotate(-11deg);
+  cursor: pointer;
+}

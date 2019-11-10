@@ -117,7 +117,7 @@ function FormReservation(props) {
         <Modal visible={modal} title={title} width="590px" onCancel={goBack} footer={null}>
             <Spin spinning={false}>
                 <Form>
-                    <p style={{ ...styles.title }}>Informações do cliente</p>
+                    {/* <p style={{ ...styles.title }}>Informações do cliente</p> */}
                     <Row gutter={22} type='flex' justify="center">
                         {!lotSelected &&
                             <Col md={4}>
@@ -139,10 +139,9 @@ function FormReservation(props) {
                         }
 
                         <Col md={8}>
-                            <Form.Item label="RG">
+                            <Form.Item>
                                 {getFieldDecorator('rg', {
                                     initialValue: '',
-                                    rules: [{ required: true, message: 'Preencha o RG' }],
                                 })(
                                     <Input
                                         onBlur={findCustomer}
@@ -153,7 +152,7 @@ function FormReservation(props) {
                             </Form.Item>
                         </Col>
                         <Col md={8}>
-                            <Form.Item label="Nome">
+                            <Form.Item>
                                 {getFieldDecorator('nome', {
                                     initialValue: customer && customer.nome ? customer.nome : '',
                                     rules: [{ required: true, message: 'Preencha o nome' }],
@@ -166,10 +165,9 @@ function FormReservation(props) {
                             </Form.Item>
                         </Col>
                         <Col md={8}>
-                            <Form.Item label="Telefone">
+                            <Form.Item>
                                 {getFieldDecorator('telefone', {
                                     initialValue: customer && customer.telefone ? customer.telefone : '',
-                                    rules: [{ required: true, message: 'Preencha o telefone' }],
                                 })(
                                     <Input
                                         placeholder={'Telefone do cliente'}
@@ -181,7 +179,7 @@ function FormReservation(props) {
                     </Row>
                     <Row gutter={22} type='flex' justify="center">
                         <Col md={8}>
-                            <Form.Item label="Placa">
+                            <Form.Item>
                                 {getFieldDecorator('placa', {
                                     rules: [{ required: true, message: 'Preencha a placa' }],
                                 })(
@@ -194,10 +192,9 @@ function FormReservation(props) {
                             </Form.Item>
                         </Col>
                         <Col md={8}>
-                            <Form.Item label="Modelo">
+                            <Form.Item>
                                 {getFieldDecorator('modelo', {
                                     initialValue: vehicle && vehicle.modelo ? vehicle.modelo : '',
-                                    rules: [{ required: true, message: 'Preencha o modelo' }],
                                 })(
                                     <Input
                                         prefix={<Icon type="car" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -207,13 +204,12 @@ function FormReservation(props) {
                             </Form.Item>
                         </Col>
                         <Col md={8}>
-                            <Form.Item label="Cor">
+                            <Form.Item>
                                 {getFieldDecorator('cor', {
                                     initialValue: vehicle && vehicle.cor ? vehicle.cor : undefined,
-                                    rules: [{ required: true, message: 'Preencha a cor' }],
                                 })(
                                     <Select
-                                        placeholder="Selecione a cor"
+                                         placeholder="Selecione a cor"
                                     >
                                         {colors.map((c, index) => (
                                             <Select.Option key={c.value} value={c.value}>{getCircleColor(c.value, c.name)}</Select.Option>
@@ -222,24 +218,6 @@ function FormReservation(props) {
                                 )}
                             </Form.Item>
                         </Col>
-                    </Row>
-                    <Row type='flex' justify='center'>
-                        <Col md={8}>
-                            <Form.Item label="Tempo da reserva">
-                                {getFieldDecorator('tipo', {
-                                    rules: [{ required: true, message: 'Escolha um tempo' }],
-                                })(
-                                    <Select
-                                        placeholder="Selecione o tempo"
-                                    >
-                                        {table.map((t, index) => (
-                                            <Select.Option key={t._id} value={t._id}>{`${Moment(t.tempo, 'HH:mm:ss').format('HH[h] mm[m]')} - ${getFormattedMoney(t.valor)}`}</Select.Option>
-                                        ))}
-                                    </Select>
-                                )}
-                            </Form.Item>
-                        </Col>
-
                     </Row>
                     <Row type='flex' justify='end' gutter={22}>
                         <Button key="cancelar" onClick={goBack} style={{ marginRight: '10px' }}>
