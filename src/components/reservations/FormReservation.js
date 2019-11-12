@@ -3,10 +3,9 @@ import { Modal, Form, Input, Row, Col, Icon, Button, Spin, Select, notification 
 import { useDispatch, useSelector } from 'react-redux';
 import { getCustomers } from '../../handlers/customers';
 import { getLots } from '../../handlers/lots';
-import { colors } from '../helpers/vehicles';
+import { colors } from '../../helpers/vehicles';
 import { getTablePrices } from '../../handlers/tableprice';
-import { getFormattedMoney } from '../helpers/money';
-import Moment from '../helpers/CustomMoment';
+import { getFormattedMoney } from '../../helpers/money';
 import { getVehicles } from '../../handlers/vehicles';
 import { createReservation } from '../../handlers/reservations';
 
@@ -117,7 +116,6 @@ function FormReservation(props) {
         <Modal visible={modal} title={title} width="590px" onCancel={goBack} footer={null}>
             <Spin spinning={false}>
                 <Form>
-                    {/* <p style={{ ...styles.title }}>Informações do cliente</p> */}
                     <Row gutter={22} type='flex' justify="center">
                         {!lotSelected &&
                             <Col md={4}>
@@ -231,12 +229,6 @@ function FormReservation(props) {
             </Spin>
         </Modal>
     )
-}
-
-const styles = {
-    title: {
-        fontWeight: 600, fontSize: 16, textAlign: 'center'
-    }
 }
 
 export default Form.create({ name: 'form-reservations' })(FormReservation)
