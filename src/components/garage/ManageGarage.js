@@ -103,7 +103,21 @@ export default function ManageGarage(props) {
                 }}
                 width='600px'
             >
-                <Title level={4} style={{ marginBottom: '25px' }}> Informações do cliente/veículo </Title>
+                <div level={4}
+                    style={{
+                        margin: '0 auto', padding: '20px', textAlign: 'center',
+                        maxWidth: '300px',
+                        background: '#f3f3f3',
+                        marginTop: '20px',
+                        marginBottom: '40px',
+                        fontSize: '30px',
+                        fontWeight: 600
+                    }}
+                >
+                    <Tooltip placement="topLeft" title="Tempo de reserva" arrowPointAtCenter>
+                        {reservationSelected && getReservationDuration(reservationSelected)}
+                    </Tooltip>
+                </div>
                 <Row type='flex' gutter={22}>
                     <Col md={12}>
                         <Card.Meta
@@ -114,8 +128,16 @@ export default function ManageGarage(props) {
                                 borderRadius: '50px',
                                 color: 'white'
                             }} />}
-                            title={reservationSelected && reservationSelected.cliente.nome ? reservationSelected.cliente.nome : '--'}
-                            description={reservationSelected && reservationSelected.cliente.nome ? reservationSelected.cliente.telefone : '--'}
+                            title={
+                                <Tooltip placement="topLeft" title="Cliente" arrowPointAtCenter>
+                                    {reservationSelected && reservationSelected.cliente.nome ? reservationSelected.cliente.nome : '--'}
+                                </Tooltip>
+                            }
+                            description={
+                                <Tooltip placement="topLeft" title="Telefone" arrowPointAtCenter>
+                                    {reservationSelected && reservationSelected.cliente.nome ? reservationSelected.cliente.telefone : '--'}
+                                </Tooltip>
+                            }
                         />
                     </Col>
                     <Col md={12}>
@@ -127,15 +149,23 @@ export default function ManageGarage(props) {
                                 borderRadius: '50px',
                                 color: 'white'
                             }} />}
-                            title={reservationSelected && reservationSelected.veiculo.modelo ? reservationSelected.veiculo.modelo : '--'}
-                            description={reservationSelected && reservationSelected.veiculo.placa ? reservationSelected.veiculo.placa : '--'}
+                            title={
+                                <Tooltip placement="topLeft" title="Modelo do veículo" arrowPointAtCenter>
+                                    {reservationSelected && reservationSelected.veiculo.modelo ? reservationSelected.veiculo.modelo : '--'}
+                                </Tooltip>
+                                
+                            }
+                            description={
+                                <Tooltip placement="topLeft" title="Placa do veículo" arrowPointAtCenter>
+                                    {reservationSelected && reservationSelected.veiculo.placa ? reservationSelected.veiculo.placa : '--'}
+                                </Tooltip>
+                            }
                         />
 
                     </Col>
                 </Row>
-                <Title level={4} style={{ marginTop: '30px', marginBottom: '20px' }} > Informações da reserva </Title>
-                <Row type='flex' align='middle'>
-                    <Col md={2}>
+                <Row type='flex' align='middle' style={{ marginTop: '30px', marginBottom: '20px' }}>
+                    <Col xs={4} md={2}>
                         <Icon type='download' style={{
                             background: '#1890ff',
                             padding: '10px',
@@ -143,25 +173,17 @@ export default function ManageGarage(props) {
                             color: 'white'
                         }} />
                     </Col>
-                    <Col md={10}>
+                    <Col xs={10}>
                         <Tooltip placement="topLeft" title="Entrada do veículo" arrowPointAtCenter>
                             {reservationSelected ? Moment(reservationSelected.entrada).format('lll') : ''}
                         </Tooltip>
                     </Col>
-                    <Col md={2}>
-                        <Icon type='dashboard' style={{
-                            background: '#1890ff',
-                            padding: '10px',
-                            borderRadius: '50px',
-                            color: 'white'
-                        }} />
-                    </Col>
-                    <Col md={10}>
-                        <Tooltip placement="topLeft" title="Tempo de reserva" arrowPointAtCenter>
-                            {reservationSelected && getReservationDuration(reservationSelected)}
-                        </Tooltip>
-                    </Col>
                 </Row>
+                <div style={{display: 'flex', justifyContent: 'space-between', margin: '40px auto 0 auto', width: '260px'}}>
+                    <Button type='danger'> Cancelar </Button>
+                    <Button > Editar </Button>
+                    <Button type='primary'> Finalizar </Button>
+                </div>
             </Modal>
 
             <Switch>
