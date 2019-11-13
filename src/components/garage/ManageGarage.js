@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Spin, Popover, Icon, Avatar, Card, Modal, Row, Col, Tooltip, Switch } from 'antd';
+import { Button, Spin, Popover, Icon, Avatar, Card, Modal, Row, Col, Tooltip, Switch, Input, Select } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLots } from '../../handlers/lots';
 import * as ReactRouter from 'react-router-dom';
@@ -8,6 +8,7 @@ import { getReservations } from '../../handlers/reservations';
 import Moment from '../../helpers/CustomMoment';
 import Title from 'antd/lib/typography/Title';
 import { getReservationDuration } from '../../helpers/reservation';
+import { colors } from '../../helpers/vehicles';
 
 export default function ManageGarage(props) {
     const { history } = props;
@@ -22,6 +23,9 @@ export default function ManageGarage(props) {
     const [getReservationsLoading, setGetReservationsLoading] = useState(true);
     const [reservationDuration, setReservationDuration] = useState('--');
     const [displayCard, setDisplayCard] = useState(false);
+    const [customerFilter, setCustomerFilter] = useState('');
+    const [colorFilter, setColorFilter] = useState('');
+    const [placaFilter, setPlacaFilter] = useState('');
 
     useEffect(() => {
         dispatch(getLots({
@@ -52,6 +56,17 @@ export default function ManageGarage(props) {
             setReservationSelected(reservation || null);
             setModal(true);
         }
+    }
+
+    const getCircleColor = (color, name) => {
+        color = `#${color}`;
+
+        return <div style={{ display: 'flex', alignItems: 'center' }}>
+            <svg height="20" width="20">
+                <circle cx="10" cy="10" r="5" stroke={color} strokeWidth="2" fill={color} />
+            </svg>
+            <span style={{ textAlign: 'center', marginLeft: '5px' }}>{name}</span>
+        </div>
     }
 
     const renderCards = (lot) => {
@@ -97,9 +112,20 @@ export default function ManageGarage(props) {
     return (
         <>
             <div className='card-filter'>
-                <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}> 
+                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}> 
                     Filtros:
-                    
+                    <div>
+                        <Input placeholder="Cliente" style={{width: '200px', marginRight: '10px'}}/>
+                        <Input placeholder="Placa" style={{width: '200px'}}/>
+                        <Select
+                            placeholder="Selecione a cor"
+                            style={{minWidth: '200px', marginLeft: '10px'}}
+                        >
+                            {colors.map((c, index) => (
+                                <Select.Option key={c.value} value={c.value}>{getCircleColor(c.value, c.name)}</Select.Option>
+                            ))}
+                        </Select>
+                    </div>
                     <div>
                         <Switch
                             style={{ marginRight: '12px' }}
