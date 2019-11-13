@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Spin, Popover, Icon, Avatar, Card, Modal, Row, Col, Tooltip } from 'antd';
+import { Button, Spin, Popover, Icon, Avatar, Card, Modal, Row, Col, Tooltip, Switch } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLots } from '../../handlers/lots';
-import { Route, Switch } from 'react-router-dom';
+import * as ReactRouter from 'react-router-dom';
 import FormReservation from '../reservations/FormReservation';
 import { getReservations } from '../../handlers/reservations';
 import Moment from '../../helpers/CustomMoment';
@@ -21,7 +21,7 @@ export default function ManageGarage(props) {
     const [getLotsLoading, setGetLotLoading] = useState(true);
     const [getReservationsLoading, setGetReservationsLoading] = useState(true);
     const [reservationDuration, setReservationDuration] = useState('--');
-
+    const [displayCard, setDisplayCard] = useState(false);
 
     useEffect(() => {
         dispatch(getLots({
@@ -54,6 +54,27 @@ export default function ManageGarage(props) {
         }
     }
 
+    const renderCards = (lot) => {
+        const reservation = reservations.find(r => r.vaga._id == lot._id);
+        
+        return (
+            <div className={`garage-items ${!lot.status ? 'item-completed' : ''}`}
+                style={{
+                    background: reservation ? `#${reservation.veiculo.cor}` : 'white'
+                }}
+            onClick={() => lotClick(lot)}>
+                {lot.status ? lot.codigo : 
+                    <Tooltip placement="topLeft" onVisibleChange={() => {
+                        setReservationDuration(getReservationDuration(reservation))
+                    }} title={reservationDuration} arrowPointAtCenter>
+                        <Icon type="car" style={{fontSize: '20px'}} />
+                    </Tooltip>
+                }
+            </div>
+
+        )
+    }
+
     const renderVehicle = (lot) => {
         const reservation = reservations.find(r => r.vaga._id == lot._id);
 
@@ -75,20 +96,32 @@ export default function ManageGarage(props) {
 
     return (
         <>
+            <div className='card-filter'>
+                <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}> 
+                    Filtros:
+                    
+                    <div>
+                        <Switch
+                            style={{ marginRight: '12px' }}
+                            checkedChildren={<Icon type="container" />}
+                            unCheckedChildren={<Icon type="idcard" />}
+                            defaultChecked
+                            onChange={() => setDisplayCard(!displayCard)}
+                        />
+
+                        Visualização
+                    </div>
+                </div> 
+                    
+            </div>
             <Spin spinning={getLotsLoading || getReservationsLoading}>
                 <div className='garage-wrapper'>
-                    {lots.map(lot =>
-                        // <div className='garage-items' style={{
-                        //     background: lot.status ? 'white' : '#1890ff',
-                        //     color: lot.status ? 'inherit' : 'white'
-                        // }} onClick={() => lotClick(lot)}>
-                        //     {lot.status ? lot.codigo : <Icon type="car" style={{fontSize: '20px'}} />}
-                        // </div>
-                        // <p style={{textAlign: 'center'}}>{lot.codigo}</p>
-
-                        <div key={lot._id} className='lot-item' onClick={() => lotClick(lot)}>
-                            {lot.status ? lot.codigo : renderVehicle(lot)}
-                        </div>
+                    { lots.map(lot => 
+                        displayCard ? renderCards(lot) : (
+                            <div key={lot._id} className='lot-item' onClick={() => lotClick(lot)}>
+                                {lot.status ? lot.codigo : renderVehicle(lot)}
+                            </div>
+                        )
                     )}
                 </div>
             </Spin>
@@ -135,7 +168,7 @@ export default function ManageGarage(props) {
                             }
                             description={
                                 <Tooltip placement="topLeft" title="Telefone" arrowPointAtCenter>
-                                    {reservationSelected && reservationSelected.cliente.nome ? reservationSelected.cliente.telefone : '--'}
+                                    {reservationSelected && reservationSelected.cliente.telefone ? reservationSelected.cliente.telefone : '--'}
                                 </Tooltip>
                             }
                         />
@@ -179,28 +212,28 @@ export default function ManageGarage(props) {
                         </Tooltip>
                     </Col>
                 </Row>
-                <div style={{display: 'flex', justifyContent: 'space-between', margin: '40px auto 0 auto', width: '260px'}}>
-                    <Button type='danger'> Cancelar </Button>
-                    <Button > Editar </Button>
-                    <Button type='primary'> Finalizar </Button>
+                <div style={{display: 'flex', justifyContent: 'space-between', margin: '40px auto 0 auto', width: '430px'}}>
+                    <Button type='danger'> Cancelar reserva</Button>
+                    <Button > Editar reserva</Button>
+                    <Button type='primary'> Finalizar reserva</Button>
                 </div>
             </Modal>
 
-            <Switch>
-                <Route
+            <ReactRouter.Switch>
+                <ReactRouter.Route
                     path={['/dashboard/garagem/reserva/nova']}
                     render={(router) => {
                         return <FormReservation {...router} {...props} type='create' />
                     }}
                 />
 
-                <Route
+                <ReactRouter.Route
                     path={['/dashboard/garagem/reserva/editar/:reservation']}
                     render={(router) => {
                         return <FormReservation {...props} {...router} type='update' />
                     }}
                 />
-            </Switch>
+            </ReactRouter.Switch>
         </>
     )
 }

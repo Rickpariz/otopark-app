@@ -36,6 +36,7 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .lot-item{
@@ -50,4 +51,17 @@ code {
   justify-content: center;
   transform: rotate(-11deg);
   cursor: pointer;
+}
+
+.item-completed {
+  background: #1890ff;
+  color: white;
+}
+
+.card-filter {
+  display: flex;
+  background: white;
+  width: 100%;
+  padding: 20px;
+  margin-bottom: 30px
 }
