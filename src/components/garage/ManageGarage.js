@@ -52,10 +52,26 @@ export default function ManageGarage(props) {
                 }
             })
         } else {
-            const reservation = reservations.find(r => r.vaga._id.toString() === lot._id);
+            const reservation = reservations.find(r => r.vaga._id === lot._id);
             setReservationSelected(reservation || null);
             setModal(true);
         }
+    }
+
+    const filterLots = (lots) => {
+        if(customerFilter || placaFilter || colorFilter){
+            const lotsCompleted = lots.filter(l => !l.status);
+
+            const list = lotsCompleted.filter(l => {
+                const reservation = reservations.find(r => r.vaga._id === l._id);
+                return ( 
+                    // reservation.cliente.nome.match(new RegExp(customerFilter, 'gi')) || reservation.cliente.telefone.match(new RegExp(customerFilter, 'gi')) || reservation.cliente.rg.match(new RegExp(customerFilter, 'gi'))
+                    reservation.veiculo.placa.match(new RegExp(placaFilter, 'gi')) || reservation.veiculo.modelo.match(new RegExp(placaFilter, 'gi')) || reservation.veiculo.cor === colorFilter
+                )
+            })
+
+            return list;
+        } else return lots;
     }
 
     const getCircleColor = (color, name) => {
@@ -115,11 +131,22 @@ export default function ManageGarage(props) {
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}> 
                     Filtros:
                     <div>
-                        <Input placeholder="Cliente" style={{width: '200px', marginRight: '10px'}}/>
-                        <Input placeholder="Placa" style={{width: '200px'}}/>
+                        <Input
+                            placeholder="Cliente"
+                            style={{width: '200px', marginRight: '10px'}}
+                            onChange={(e) => setCustomerFilter(e.target.value)}
+                        />
+
+                        <Input
+                            placeholder="Placa"
+                            style={{width: '200px'}}
+                            onChange={(e) => setPlacaFilter(e.target.value)}
+                        />
+
                         <Select
                             placeholder="Selecione a cor"
                             style={{minWidth: '200px', marginLeft: '10px'}}
+                            onChange={(value) => setColorFilter(value)}
                         >
                             {colors.map((c, index) => (
                                 <Select.Option key={c.value} value={c.value}>{getCircleColor(c.value, c.name)}</Select.Option>
@@ -142,7 +169,7 @@ export default function ManageGarage(props) {
             </div>
             <Spin spinning={getLotsLoading || getReservationsLoading}>
                 <div className='garage-wrapper'>
-                    { lots.map(lot => 
+                    { filterLots(lots).map(lot => 
                         displayCard ? renderCards(lot) : (
                             <div key={lot._id} className='lot-item' onClick={() => lotClick(lot)}>
                                 {lot.status ? lot.codigo : renderVehicle(lot)}
