@@ -24,7 +24,7 @@ export default function ManageGarage(props) {
     const [reservationDuration, setReservationDuration] = useState('--');
     const [displayCard, setDisplayCard] = useState(false);
     const [customerFilter, setCustomerFilter] = useState('');
-    const [colorFilter, setColorFilter] = useState('');
+    const [colorFilter, setColorFilter] = useState(undefined);
     const [placaFilter, setPlacaFilter] = useState('');
 
     useEffect(() => {
@@ -150,27 +150,42 @@ export default function ManageGarage(props) {
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}> 
                     Filtros:
                     <div>
-                        <Input
-                            placeholder="Cliente"
-                            style={{width: '200px', marginRight: '10px'}}
-                            onChange={(e) => setCustomerFilter(e.target.value)}
-                        />
+                        <Tooltip placement="topLeft" title="Filtre por nome, rg e telefone do cliente" arrowPointAtCenter>
+                            <Input
+                                value={customerFilter}
+                                placeholder="Clientes"
+                                style={{width: '200px', marginRight: '10px'}}
+                                onChange={(e) => setCustomerFilter(e.target.value)}
+                            />
+                        </Tooltip>
 
-                        <Input
-                            placeholder="Placa"
-                            style={{width: '200px'}}
-                            onChange={(e) => setPlacaFilter(e.target.value)}
-                        />
-
+                        <Tooltip placement="topLeft" title="Filtre por placa e modelo do veículo" arrowPointAtCenter>
+                            <Input
+                                value={placaFilter}
+                                placeholder="Veículos"
+                                style={{width: '200px'}}
+                                onChange={(e) => setPlacaFilter(e.target.value)}
+                            />
+                        </Tooltip>
+                        
                         <Select
+                            value={colorFilter}
                             placeholder="Selecione a cor"
-                            style={{minWidth: '200px', marginLeft: '10px'}}
+                            style={{minWidth: '200px', marginLeft: '10px', marginRight: '10px'}}
                             onChange={(value) => setColorFilter(value)}
                         >
                             {colors.map((c, index) => (
                                 <Select.Option key={c.value} value={c.value}>{getCircleColor(c.value, c.name)}</Select.Option>
                             ))}
                         </Select>
+
+                        <Button type="link" onClick={() => { 
+                            setColorFilter(undefined);
+                            setPlacaFilter('');
+                            setCustomerFilter('');
+                        }}>
+                            Limpar filtros
+                        </Button>
                     </div>
                     <div>
                         <Switch
