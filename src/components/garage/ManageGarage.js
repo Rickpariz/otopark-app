@@ -62,14 +62,33 @@ export default function ManageGarage(props) {
         if(customerFilter || placaFilter || colorFilter){
             const lotsCompleted = lots.filter(l => !l.status);
 
-            const list = lotsCompleted.filter(l => {
-                const reservation = reservations.find(r => r.vaga._id === l._id);
-                return ( 
-                    // reservation.cliente.nome.match(new RegExp(customerFilter, 'gi')) || reservation.cliente.telefone.match(new RegExp(customerFilter, 'gi')) || reservation.cliente.rg.match(new RegExp(customerFilter, 'gi'))
-                    reservation.veiculo.placa.match(new RegExp(placaFilter, 'gi')) || reservation.veiculo.modelo.match(new RegExp(placaFilter, 'gi')) || reservation.veiculo.cor === colorFilter
-                )
-            })
+            let list = lotsCompleted;
 
+            // filtrando por informações do cliente
+            if(customerFilter && customerFilter != ''){
+                list = lotsCompleted.filter(l => {
+                    const reservation = reservations.find(r => r.vaga._id === l._id);
+                    return reservation.cliente.nome.match(new RegExp(customerFilter, 'gi')) || reservation.cliente.telefone.match(new RegExp(customerFilter, 'gi')) || reservation.cliente.rg.match(new RegExp(customerFilter, 'gi'));
+                })
+            }
+            
+
+            if(placaFilter){
+                // filtrando por informações do veiculo
+                list = list.filter(l => {
+                    const reservation = reservations.find(r => r.vaga._id === l._id);
+                    return reservation.veiculo.placa.match(new RegExp(placaFilter, 'gi')) || reservation.veiculo.modelo.match(new RegExp(placaFilter, 'gi'))
+                })
+            }
+            
+            if(colorFilter){
+                // filtrando por cor do veiculo
+                list = list.filter(l => {
+                    const reservation = reservations.find(r => r.vaga._id === l._id);
+                    return reservation.veiculo.cor === colorFilter;
+                })
+            }
+            
             return list;
         } else return lots;
     }
