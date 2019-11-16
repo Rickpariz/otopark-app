@@ -5,6 +5,7 @@ import ManageEmployees from '../users/ManageEmployees';
 import ManageCustomers from '../customers/ManageCustomers';
 import ManageVehicles from '../vehicles/ManageVehicles';
 import ManageGarage from '../garage/ManageGarage';
+import Settings from '../users/Settings';
 
 const { Header, Content, Footer, Sider } = Layout;
 // const { SubMenu } = Menu;
@@ -47,6 +48,10 @@ export default function TemplateUsers(props) {
                         <Icon type="car" />
                         <span className="nav-text">Veiculos</span>
                     </Menu.Item>
+                    <Menu.Item key="5" onClick={() => history.push('/dashboard/configuracoes')}>
+                        <Icon type="setting" />
+                        <span className="nav-text">Configurações</span>
+                    </Menu.Item>
                 </Menu>
             </Sider>
             <Layout>
@@ -61,6 +66,7 @@ export default function TemplateUsers(props) {
                         <Route path='/dashboard/funcionarios' component={ManageEmployees}/>
                         <Route path='/dashboard/clientes' component={ManageCustomers}/>
                         <Route path='/dashboard/veiculos' component={ManageVehicles}/>
+                        <Route path='/dashboard/configuracoes' component={Settings}/>
 
                     </Switch>
                     
