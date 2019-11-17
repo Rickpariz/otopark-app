@@ -18,7 +18,6 @@ function FormReservation(props) {
     const systemParking = useSelector(state => state.system.parking);
     const customers = useSelector(state => state.customers.list);
     const vehicles = useSelector(state => state.vehicles.list);
-    const table = useSelector(state => state.tablePrices.list);
 
     const [modal, setModal] = useState(true);
     const [customer, setCustomer] = useState(null);
@@ -59,9 +58,10 @@ function FormReservation(props) {
 
     const findCustomer = () => {
         const rg = form.getFieldValue('rg');
-        const c = customers.find(c => c.rg === rg);
-
-        setCustomer(c || null);
+        if(rg && rg != ''){
+            const c = customers.find(c => c.rg === rg);
+            setCustomer(c || null);
+        }
     }
 
     const findVehicle = () => {
@@ -216,6 +216,21 @@ function FormReservation(props) {
                                 )}
                             </Form.Item>
                         </Col>
+                    </Row>
+                    <Row>
+                        <Form.Item>
+                            {getFieldDecorator('tipo', {
+                                initialValue: 'Avulsa'
+                            })(
+                                <Select
+                                        placeholder="Selecione o tipo de reserva"
+                                >
+                                    <Select.Option value={'Avulso'}>Avulsa</Select.Option>
+                                    <Select.Option value={'Diario'}>Diaria</Select.Option>
+                                    {/* <Select.Option value={'Mensal'}>Mensal</Select.Option> */}
+                                </Select>
+                            )}
+                        </Form.Item>
                     </Row>
                     <Row type='flex' justify='end' gutter={22}>
                         <Button key="cancelar" onClick={goBack} style={{ marginRight: '10px' }}>

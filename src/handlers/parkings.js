@@ -79,3 +79,19 @@ export const updateCustomerLooseConfigs = (values) => {
         })
     }
 }
+
+export const updateCustomerDayConfigs = (values) => {
+    return (dispatch) => {
+        return Axios.put(`${base_api_url}estacionamento/atualizarConfiguracoesClienteDiario`, values).then(({ data }) => {
+            dispatch({
+                type: 'SYSTEM_SET_PARKING',
+                payload: data
+            })
+
+            return Promise.resolve(data);
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+}

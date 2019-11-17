@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Title from 'antd/lib/typography/Title'
 import { Row, Col, Button, Modal, Input, InputNumber, message } from 'antd';
 import { getFormattedMoney, getMoney, currencyConfig } from '../../helpers/money';
-import { updateCustomerLooseConfigs } from '../../handlers/parkings';
+import { updateCustomerLooseConfigs, updateCustomerDayConfigs } from '../../handlers/parkings';
 import IntlCurrencyInput from "react-intl-currency-input"
 
 export default function Settings() {
@@ -13,16 +13,19 @@ export default function Settings() {
     const [horaExcedente, sethoraExcedente] = useState('');
     const [modalLoose, setModalLoose] = useState(false);
     const [tolerancia, setTolerancia] = useState('');
-    const [requestLoading, setRequestLoading] = useState(true);
-
-    useEffect(() => {
-
-    }, [dispatch])
-
+    const [requestLoading, setRequestLoading] = useState(false);
+    const [modalConfigDay, setModalConfigDay] = useState(false);
+    const [timeDay, setTimeDay] = useState('');
+    
     console.log(systemParking);
 
-    const handleUpdateConfig = () => {
+    const clearState = () => {
+        setHoraFixa('');
+        sethoraExcedente('');
+        setTolerancia('')
+    }
 
+    const handleUpdateConfig = () => {
         if(!horaFixa || !horaExcedente || tolerancia == '') message.error('Preencha todas as informações');
         else {
             setRequestLoading(true);
@@ -35,7 +38,29 @@ export default function Settings() {
                 setRequestLoading(false);
                 if(data){
                     message.success('Configurações salvas');
+                    clearState();
                     setModalLoose(false);
+                }
+            })
+        }
+    }
+
+    const handleUpdateConfigDay = () => {
+        if(timeDay == '' || !horaFixa || !horaExcedente || tolerancia == '') message.error('Preencha todas as informações');
+        else {
+            setRequestLoading(true);
+            dispatch(updateCustomerDayConfigs({
+                tempo: timeDay,
+                precoDiaria: horaFixa,
+                horaExcedente,
+                tolerancia,
+                estacionamento: systemParking._id
+            })).then(data => {
+                setRequestLoading(false);
+                if(data){
+                    message.success('Configurações salvas');
+                    clearState();
+                    setModalConfigDay(false);
                 }
             })
         }
@@ -62,13 +87,28 @@ export default function Settings() {
                     </div>
                 </Col>
                 <Col md={12}>
-                    <div className='card-white'>
-                        <Title level={4}> Perfil </Title>
+                    <div className='card-white' style={{ flexDirection: 'column' }}>
+                        <Title level={4}> Reservas diarias </Title>
+
+                        {!systemParking.diario ?
+                            <Button type='primary' onClick={() => setModalConfigDay(true)}> Criar configuração </Button>
+                            : 
+                            <div>
+                                <p>Tempo da diaria <b> {systemParking.diario.tempo} Horas</b></p>
+                                <p>Valor da diaria <b style={{color: '#4ba021'}}> {getFormattedMoney(systemParking.diario.precoDiaria)}</b></p>
+                                <p>Valor das horas excedentes <b style={{color: '#4ba021'}}> {getFormattedMoney(systemParking.diario.horaExcedente)}</b></p>
+                                <p>Tempo de tolerância <b> {systemParking.diario.tolerancia} Minutos</b></p>
+                                <Button type='primary' onClick={() => setModalConfigDay(true)}> Configurar </Button>
+                            </div>
+                        }
                     </div>
                 </Col>
             </Row>
 
-            <Modal visible={modalLoose} onCancel={() => setModalLoose(false)} title={null} footer={null}>
+            <Modal visible={modalLoose} onCancel={() => {
+                setModalLoose(false);
+                clearState();
+            }} title={null} footer={null}>
                 <Title level={4}> Qual será o preço da primeira hora ? </Title>
                 <IntlCurrencyInput
                     style={{ maxWidth: '200px' }}
@@ -113,9 +153,82 @@ export default function Settings() {
                 />
 
                 <Button 
+                    loading={requestLoading}
                     type='primary'
                     style={{display: 'block', margin: '20px auto 0px auto'}}
                     onClick={handleUpdateConfig}
+                >
+                    Salvar
+                </Button>
+            </Modal>
+
+            <Modal visible={modalConfigDay} onCancel={() => {
+                setModalConfigDay(false);
+                clearState();
+            }} title={null} footer={null}>
+                <Title level={4}> Qual o tempo da diária ?</Title>
+                <Input
+                    style={{ maxWidth: '200px' }}
+                    step={0}
+                    value={timeDay}
+                    onChange={(e) => {
+                        const { value } = e.target;
+                        const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+                        if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+                            setTimeDay(parseInt(value) || '');
+                        }
+                    }}
+                    placeholder='0'
+                    suffix='Horas'
+                />
+
+                <Title level={4} style={{ marginTop: '20px' }}> Qual será o preço da diária ? </Title>
+                <IntlCurrencyInput
+                    style={{ maxWidth: '200px' }}
+                    className='custom-input'
+                    currency="BRL"
+                    config={currencyConfig}
+                    value={horaFixa}
+                    onChange={(event, value, maskedValue) => {
+                        setHoraFixa(value);
+                    }}
+                />
+
+                <Title level={4} style={{ marginTop: '20px' }}> Qual será o preço da hora após o período da diária ? </Title>
+                <IntlCurrencyInput
+                    style={{ maxWidth: '200px' }}
+                    className='custom-input'
+                    currency="BRL"
+                    config={currencyConfig}
+                    value={horaExcedente}
+                    onChange={(event, value, maskedValue) => {
+                        sethoraExcedente(value);
+                    }}
+                />
+
+                <Title level={4} style={{ marginTop: '20px' }}> Qual o tempo de tolerância ? </Title>
+                <p>Após o tempo de tolerância será cobrado o preço da hora excedente</p>
+
+                <Input
+                    style={{ maxWidth: '200px' }}
+                    step={0}
+                    value={tolerancia}
+                    onChange={(e) => {
+                        const { value } = e.target;
+                        const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+                        if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+                            setTolerancia(value);
+                        }
+                    }}
+                    placeholder='0'
+                    suffix='Minutos'
+                />
+
+                <Button 
+                    loading={requestLoading}
+                    type='primary'
+                    style={{display: 'block', margin: '20px auto 0px auto'}}
+                    onClick={handleUpdateConfigDay}
                 >
                     Salvar
                 </Button>
