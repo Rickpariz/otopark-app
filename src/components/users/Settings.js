@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Title from 'antd/lib/typography/Title'
 import { Row, Col, Button, Modal, Input, InputNumber, message } from 'antd';
-import { getFormattedMoney, getMoney, currencyConfig } from '../../helpers/money';
+import { getFormattedMoney, currencyConfig } from '../../helpers/money';
 import { updateCustomerLooseConfigs, updateCustomerDayConfigs } from '../../handlers/parkings';
 import IntlCurrencyInput from "react-intl-currency-input"
 
