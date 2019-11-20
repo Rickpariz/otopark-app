@@ -9,6 +9,7 @@ import Moment from '../../helpers/CustomMoment';
 import Title from 'antd/lib/typography/Title';
 import { getReservationDuration } from '../../helpers/reservation';
 import { colors } from '../../helpers/vehicles';
+import ModalReservationDetails from '../reservations/ModalReservationDetails';
 
 export default function ManageGarage(props) {
     const { history } = props;
@@ -213,98 +214,16 @@ export default function ManageGarage(props) {
                 </div>
             </Spin>
 
-            <Modal
+            <ModalReservationDetails
                 visible={modal}
-                footer={null}
-                title={null}
                 onCancel={() => {
                     setModal(false);
                     setReservationSelected(null);
                 }}
+                reservationSelected={reservationSelected}
                 width='600px'
-            >
-                <div
-                    style={{
-                        margin: '0 auto', padding: '20px', textAlign: 'center',
-                        maxWidth: '300px',
-                        background: '#f3f3f3',
-                        marginTop: '20px',
-                        marginBottom: '40px',
-                        fontSize: '30px',
-                        fontWeight: 600
-                    }}
-                >
-                    <Tooltip placement="topLeft" title="Tempo de reserva" arrowPointAtCenter>
-                        {reservationSelected && getReservationDuration(reservationSelected)}
-                    </Tooltip>
-                </div>
-                <Row type='flex' gutter={22}>
-                    <Col md={12}>
-                        <Card.Meta
-                            style={{ width: '100%' }}
-                            avatar={<Icon type='user' style={{
-                                background: '#1890ff',
-                                padding: '10px',
-                                borderRadius: '50px',
-                                color: 'white'
-                            }} />}
-                            title={
-                                <Tooltip placement="topLeft" title="Cliente" arrowPointAtCenter>
-                                    {reservationSelected && reservationSelected.cliente.nome ? reservationSelected.cliente.nome : '--'}
-                                </Tooltip>
-                            }
-                            description={
-                                <Tooltip placement="topLeft" title="Telefone" arrowPointAtCenter>
-                                    {reservationSelected && reservationSelected.cliente.telefone ? reservationSelected.cliente.telefone : '--'}
-                                </Tooltip>
-                            }
-                        />
-                    </Col>
-                    <Col md={12}>
-                        <Card.Meta
-                            style={{ width: '100%' }}
-                            avatar={<Icon type='car' style={{
-                                background: '#1890ff',
-                                padding: '10px',
-                                borderRadius: '50px',
-                                color: 'white'
-                            }} />}
-                            title={
-                                <Tooltip placement="topLeft" title="Modelo do veículo" arrowPointAtCenter>
-                                    {reservationSelected && reservationSelected.veiculo.modelo ? reservationSelected.veiculo.modelo : '--'}
-                                </Tooltip>
-                                
-                            }
-                            description={
-                                <Tooltip placement="topLeft" title="Placa do veículo" arrowPointAtCenter>
-                                    {reservationSelected && reservationSelected.veiculo.placa ? reservationSelected.veiculo.placa : '--'}
-                                </Tooltip>
-                            }
-                        />
+            />
 
-                    </Col>
-                </Row>
-                <Row type='flex' align='middle' style={{ marginTop: '30px', marginBottom: '20px' }}>
-                    <Col xs={4} md={2}>
-                        <Icon type='download' style={{
-                            background: '#1890ff',
-                            padding: '10px',
-                            borderRadius: '50px',
-                            color: 'white'
-                        }} />
-                    </Col>
-                    <Col xs={10}>
-                        <Tooltip placement="topLeft" title="Entrada do veículo" arrowPointAtCenter>
-                            {reservationSelected ? Moment(reservationSelected.entrada).format('lll') : ''}
-                        </Tooltip>
-                    </Col>
-                </Row>
-                <div style={{display: 'flex', justifyContent: 'space-between', margin: '40px auto 0 auto', width: '430px'}}>
-                    <Button type='danger'> Cancelar reserva</Button>
-                    <Button > Editar reserva</Button>
-                    <Button type='primary'> Finalizar reserva</Button>
-                </div>
-            </Modal>
 
             <ReactRouter.Switch>
                 <ReactRouter.Route
