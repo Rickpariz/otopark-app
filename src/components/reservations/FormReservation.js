@@ -225,8 +225,8 @@ function FormReservation(props) {
                                 <Select
                                         placeholder="Selecione o tipo de reserva"
                                 >
-                                    <Select.Option value={'Avulso'}>Avulsa</Select.Option>
-                                    <Select.Option value={'Diario'}>Diaria</Select.Option>
+                                    <Select.Option value={'Avulsa'}>Avulsa</Select.Option>
+                                    <Select.Option value={'Diaria'}>Diaria</Select.Option>
                                     {/* <Select.Option value={'Mensal'}>Mensal</Select.Option> */}
                                 </Select>
                             )}

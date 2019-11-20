@@ -223,7 +223,7 @@ export default function ManageGarage(props) {
                 }}
                 width='600px'
             >
-                <div level={4}
+                <div
                     style={{
                         margin: '0 auto', padding: '20px', textAlign: 'center',
                         maxWidth: '300px',
