@@ -3,14 +3,13 @@ import { Modal, Tooltip, Row, Col, Card, Button, Icon } from 'antd';
 import { getReservationDurationFormatted, getReservationPrice } from '../../helpers/reservation';
 import Moment from '../../helpers/CustomMoment';
 import Title from 'antd/lib/typography/Title';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export default function ModalReservationDetails(props) {
     const { visible, onCancel, reservationSelected } = props;
 
     const [modal, setModal] = useState(false);
     const systemParking = useSelector(state => state.system.parking);
-
 
     return (
         <>
@@ -119,7 +118,7 @@ export default function ModalReservationDetails(props) {
                     </Col>
                 </Row>
                 <div style={{ display: 'flex', justifyContent: 'space-between', margin: '40px auto 0 auto', width: '430px' }}>
-                    <Button type='danger'> Cancelar reserva</Button>
+                    <Button type='danger'> Descartar reserva</Button>
                     <Button > Editar reserva</Button>
                     <Button type='primary' onClick={() => {
                         setModal(true)

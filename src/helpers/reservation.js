@@ -73,26 +73,23 @@ export const getReservationDurationFormatted = (reservation) => {
 
 export const getReservationPrice = (reservation, parking) => {
     const configAvulso = parking.avulso;
+    const duration = getReservationDuration(reservation);        
     let price = 'R$ 0,00';
 
     if(reservation.tipo === "Avulsa"){
-        const duration = getReservationDuration(reservation);        
-        const _data = duration._data;
-
-        console.log(_data);
-
-        if(_data.days === 0 && _data.hours === 0){
+        // DURAÇÃO COM TOLERÂNCIA
+        const durationWithTolerance = moment.duration({ hours: 1, minutes: configAvulso.tolerancia });
+        if(duration.asMilliseconds() < durationWithTolerance.asMilliseconds()){
             // PAGAMENTO DA HORA FIXA
             price = getFormattedMoney(configAvulso.horaFixa);
         } else {
-            // Duração com tolerância
-            const durationWithTolerance = getReservationDuration(reservation).add(parseInt(configAvulso.tolerancia), 'minutes');
-            if(durationWithTolerance._data.days === 0 && durationWithTolerance._data.hours === 0){
-                // PAGAMENTO DA HORA FIXA
-                price = getFormattedMoney(configAvulso.horaFixa);
-            }
+            let diffDuration = duration.asSeconds() - moment.duration({ hours: 1}).asSeconds();
+            let diffMoment = moment.duration(diffDuration, 'seconds');
+            let aditionalForMinutes = diffMoment._data.minutes > configAvulso.tolerancia ? 1 : 0;
+            let priceAditional = (diffMoment._data.hours + aditionalForMinutes) * configAvulso.horaExcedente;
+
+            price = getFormattedMoney(configAvulso.horaFixa + priceAditional);
         }
-        
     }
 
     return price;
