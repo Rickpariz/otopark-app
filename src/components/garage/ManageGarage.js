@@ -5,11 +5,10 @@ import { getLots } from '../../handlers/lots';
 import * as ReactRouter from 'react-router-dom';
 import FormReservation from '../reservations/FormReservation';
 import { getReservations } from '../../handlers/reservations';
-import Moment from '../../helpers/CustomMoment';
-import Title from 'antd/lib/typography/Title';
-import { getReservationDurationFormatted } from '../../helpers/reservation';
+import { getReservationDurationFormatted, RESERVATION_STATUS } from '../../helpers/reservation';
 import { colors } from '../../helpers/vehicles';
 import ModalReservationDetails from '../reservations/ModalReservationDetails';
+import { RESERVATION_INITIAL } from '../../helpers/system';
 
 export default function ManageGarage(props) {
     const { history } = props;
@@ -19,7 +18,7 @@ export default function ManageGarage(props) {
     const systemParking = useSelector(state => state.system.parking);
 
     const [modal, setModal] = useState(false);
-    const [reservationSelected, setReservationSelected] = useState(null);
+    const [reservationSelected, setReservationSelected] = useState(RESERVATION_INITIAL);
     const [getLotsLoading, setGetLotLoading] = useState(true);
     const [getReservationsLoading, setGetReservationsLoading] = useState(true);
     const [reservationDuration, setReservationDuration] = useState('--');
@@ -38,7 +37,8 @@ export default function ManageGarage(props) {
 
     useEffect(() => {
         dispatch(getReservations({
-            estacionamento: systemParking._id
+            estacionamento: systemParking._id,
+            status: RESERVATION_STATUS.OPEN
         })).then(res => {
             setGetReservationsLoading(false);
         })
@@ -217,9 +217,9 @@ export default function ManageGarage(props) {
                 visible={modal}
                 onCancel={() => {
                     setModal(false);
-                    setReservationSelected(null);
+                    setReservationSelected(RESERVATION_INITIAL);
                 }}
-                reservationSelected={reservationSelected}
+                reservation={reservationSelected}
                 width='600px'
             />
 

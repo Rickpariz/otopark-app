@@ -22,16 +22,17 @@ code {
 }
 
 .custom-input {
+  font-size: 15px;
   width: 100%;
-    height: 30px;
-    padding: 0 11px;
-    text-align: left;
-    background-color: #fbf5f500;
-    border: 1px solid #d9d9d9;
-    border-radius: 4px;
-    outline: 0;
-    -webkit-transition: all 0.3s linear;
-    transition: all 0.3s linear;
+  height: 30px;
+  padding: 0 11px;
+  text-align: left;
+  background-color: #fbf5f500;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  outline: 0;
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
 }
 
 .custom-input:hover {

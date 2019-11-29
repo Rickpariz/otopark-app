@@ -1,46 +1,11 @@
 import moment from "moment";
 import { getFormattedMoney } from "./money";
 
-const model = { 
-    "status":"Aberta",
-    "tipo":"Avulsa",
-    "_id":"5dd5c2a8c15eb003379fb4db",
-    "vaga":{ 
-       "status":false,
-       "_id":"5dc46529e48d4d0597a86c3c",
-       "codigo":"839C",
-       "estacionamento":"5dc46529e48d4d0597a86c38",
-       "createdAt":"2019-11-07T18:40:41.463Z",
-       "updatedAt":"2019-11-20T22:48:08.007Z",
-       "__v":0
-    },
-    "estacionamento":"5dc46529e48d4d0597a86c38",
-    "cliente":{ 
-       "_id":"5dd5c2a8a21a8ca531a5500b",
-       "rg":"49.3094.409-21",
-       "__v":0,
-       "createdAt":"2019-11-20T22:48:07.949Z",
-       "estacionamento":"5dc46529e48d4d0597a86c38",
-       "nome":"José",
-       "telefone":"11 974758784",
-       "updatedAt":"2019-11-20T22:48:07.949Z"
-    },
-    "veiculo":{ 
-       "_id":"5dd5c2a8a21a8ca531a5500d",
-       "placa":"XMKJDL",
-       "__v":0,
-       "cliente":"5dd5c2a8a21a8ca531a5500b",
-       "cor":"FF0000",
-       "createdAt":"2019-11-20T22:48:08.005Z",
-       "estacionamento":"5dc46529e48d4d0597a86c38",
-       "modelo":"Testando",
-       "updatedAt":"2019-11-20T22:48:08.005Z"
-    },
-    "entrada":"2019-11-21T21:48:08.011Z",
-    "createdAt":"2019-11-20T22:48:08.021Z",
-    "updatedAt":"2019-11-20T22:48:08.021Z",
-    "__v":0
- }
+export const RESERVATION_STATUS = {
+    OPEN: 'Aberta',
+    CLOSED: 'Fechada',
+    CANCELED: 'Cancelada'
+}
 
 export const getReservationDuration = (reservation) => {
     let diffDuration = moment.duration(moment().diff(moment(reservation.entrada), 'seconds'), 'seconds');
@@ -74,7 +39,7 @@ export const getReservationDurationFormatted = (reservation) => {
 export const getReservationPrice = (reservation, parking) => {
     const configAvulso = parking.avulso;
     const duration = getReservationDuration(reservation);        
-    let price = 'R$ 0,00';
+    let price = 0;
 
     if(reservation.tipo === "Avulsa"){
         // DURAÇÃO COM TOLERÂNCIA
@@ -88,9 +53,13 @@ export const getReservationPrice = (reservation, parking) => {
             let aditionalForMinutes = diffMoment._data.minutes > configAvulso.tolerancia ? 1 : 0;
             let priceAditional = (diffMoment._data.hours + aditionalForMinutes) * configAvulso.horaExcedente;
 
-            price = getFormattedMoney(configAvulso.horaFixa + priceAditional);
+            price = configAvulso.horaFixa + priceAditional
         }
     }
 
     return price;
+}
+
+export const getReservationPriceFormatted = (reservation, parking) => {
+    return getFormattedMoney(getReservationPrice(reservation, parking));
 }

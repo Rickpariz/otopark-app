@@ -47,9 +47,9 @@ export const createReservation = (values) => {
     }
 }
 
-export const getReservation = (userId) => {
+export const getReservation = (reservationId) => {
     return (dispatch) => {
-        return Axios.get(`${base_api_url}reservas/${userId}`).then(({ data }) => {
+        return Axios.get(`${base_api_url}reservas/${reservationId}`).then(({ data }) => {
             dispatch({
                 type: 'RESERVATIONS_GET_ONE',
                 payload: data
@@ -74,6 +74,26 @@ export const updateReservation = (values) => {
             return Promise.resolve(data);
         })
         .catch(err => {
+            console.log(err)
+        })
+    }
+}
+
+export const finalizedReservation = (values) => {
+    return (dispatch) => {
+        return Axios.post(`${base_api_url}reservas/finalizarReserva`, values).then(({ data }) => {
+            dispatch({
+                type: 'RESERVATIONS_UPDATE',
+                payload: data
+            })
+
+            dispatch({
+                type: 'LOTS_UPDATE',
+                payload: data.vaga
+            })
+
+            return Promise.resolve(data);
+        }).catch(err => {
             console.log(err)
         })
     }
