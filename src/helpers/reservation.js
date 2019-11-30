@@ -7,6 +7,12 @@ export const RESERVATION_STATUS = {
     CANCELED: 'Cancelada'
 }
 
+export const RESERVATION_TYPE = {
+    AVULSA: 'Avulsa',
+    DIARIA: 'Diaria',
+    MENSAL: 'Mensal'
+}
+
 export const getReservationDuration = (reservation) => {
     let diffDuration = moment.duration(moment().diff(moment(reservation.entrada), 'seconds'), 'seconds');
     return diffDuration;
@@ -38,10 +44,12 @@ export const getReservationDurationFormatted = (reservation) => {
 
 export const getReservationPrice = (reservation, parking) => {
     const configAvulso = parking.avulso;
+    const configDiaria = parking.diario;
+    
     const duration = getReservationDuration(reservation);        
     let price = 0;
 
-    if(reservation.tipo === "Avulsa"){
+    if(reservation.tipo === RESERVATION_TYPE.AVULSA){
         // DURAÇÃO COM TOLERÂNCIA
         const durationWithTolerance = moment.duration({ hours: 1, minutes: configAvulso.tolerancia });
         if(duration.asMilliseconds() < durationWithTolerance.asMilliseconds()){
@@ -51,9 +59,22 @@ export const getReservationPrice = (reservation, parking) => {
             let diffDuration = duration.asSeconds() - moment.duration({ hours: 1}).asSeconds();
             let diffMoment = moment.duration(diffDuration, 'seconds');
             let aditionalForMinutes = diffMoment._data.minutes > configAvulso.tolerancia ? 1 : 0;
-            let priceAditional = (diffMoment._data.hours + aditionalForMinutes) * configAvulso.horaExcedente;
+            let priceAditional = (parseInt(diffMoment.asHours()) + aditionalForMinutes) * configAvulso.horaExcedente;
 
             price = configAvulso.horaFixa + priceAditional
+        }
+    } else if(reservation.tipo === RESERVATION_TYPE.DIARIA){
+        // DURAÇÃO COM TOLERÂNCIA
+        const durationWithTolerance = moment.duration({ hours: configDiaria.tempo, minutes: configDiaria.tolerancia });
+        if(duration.asMilliseconds() < durationWithTolerance.asMilliseconds()){
+            // PAGAMENTO DA DIARIA
+            price = getFormattedMoney(configDiaria.precoDiaria);
+        } else {
+            let diffDuration = duration.asSeconds() - moment.duration({ hours: configDiaria.tempo}).asSeconds();
+            let diffMoment = moment.duration(diffDuration, 'seconds');
+            let aditionalForMinutes = diffMoment._data.minutes > configDiaria.tolerancia ? 1 : 0;
+            let priceAditional = (parseInt(diffMoment.asHours()) + aditionalForMinutes) * configDiaria.horaExcedente;
+            price = configDiaria.precoDiaria + priceAditional
         }
     }
 

@@ -108,8 +108,9 @@ export default function ManageGarage(props) {
     const renderCards = (lot) => {
         const reservation = reservations.find(r => r.vaga._id == lot._id);
         
+        console.log(reservation)
         return (
-            <div className={`garage-items ${!lot.status ? 'item-completed' : ''}`}
+            <div key={lot._id} className={`garage-items ${!lot.status ? 'item-completed' : ''}`}
                 style={{
                     background: reservation ? `#${reservation.veiculo.cor}` : 'white'
                 }}
