@@ -98,3 +98,21 @@ export const finalizedReservation = (values) => {
         })
     }
 }
+
+export const removeReservation = (values) => {
+    return dispatch => {
+        return Axios.delete(`${base_api_url}reservas`, { data: values}).then(({ data }) => {
+            dispatch({
+                type: 'RESERVATIONS_DELETE',
+                payload: values.reserva
+            })
+
+            dispatch({
+                type: 'LOTS_UPDATE',
+                payload: data.vaga
+            })
+
+            return Promise.resolve(data);
+        })
+    }
+}

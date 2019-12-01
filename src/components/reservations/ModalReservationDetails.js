@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Modal, Tooltip, Row, Col, Card, Button, Icon, Divider, notification } from 'antd';
+import { Modal, Tooltip, Row, Col, Card, Button, Icon, Divider, notification, Popconfirm } from 'antd';
 import { getReservationDurationFormatted, getReservationPrice, getReservationPriceFormatted } from '../../helpers/reservation';
 import Moment from '../../helpers/CustomMoment';
 import { useSelector, useDispatch } from 'react-redux';
 import IntlCurrencyInput from "react-intl-currency-input"
 import { currencyConfig } from '../../helpers/money';
-import { finalizedReservation } from '../../handlers/reservations';
+import { finalizedReservation, removeReservation } from '../../handlers/reservations';
 
 export default function ModalReservationDetails(props) {
     const { visible, onCancel, reservation } = props;
@@ -14,7 +14,8 @@ export default function ModalReservationDetails(props) {
     const [modal, setModal] = useState(false);
     const [price, setPrice] = useState(0);
     const [requestLoading, setRequestLoading] = useState(false);
-    
+    const [deleteRequest, setDeleteRequest] = useState(false);
+
     const handlefinalizedReservation = () => {
         setRequestLoading(true);
 
@@ -23,7 +24,7 @@ export default function ModalReservationDetails(props) {
             reserva: reservation._id,
             preco: finalValue
         })).then(res => {
-            if(res) {
+            if (res) {
                 onCancel();
                 setModal(false);
                 notification.success({
@@ -32,6 +33,19 @@ export default function ModalReservationDetails(props) {
             }
 
             setRequestLoading(false);
+        })
+    }
+
+    const handleRemoveReservation = () => {
+        setDeleteRequest(true)
+        dispatch(removeReservation({ reserva: reservation._id })).then(res => {
+            deleteRequest(false);
+            if(res){
+                onCancel();
+                notification.success({
+                    message: `Reserva descartada com sucesso`
+                })
+            }
         })
     }
 
@@ -145,16 +159,23 @@ export default function ModalReservationDetails(props) {
                             }} />}
                             title={'Valor da reserva'}
                             description={
-                                <span style={{color: '#08bf08', fontSize: '18px'}}>
+                                <span style={{ color: '#08bf08', fontSize: '18px' }}>
                                     {getReservationPriceFormatted(reservation, systemParking)}
                                 </span>
                             }
                         />
-                        
+
                     </Col>
                 </Row>
                 <div style={{ display: 'flex', justifyContent: 'space-between', margin: '40px auto 0 auto', width: '430px' }}>
-                    <Button type='danger'> Descartar reserva</Button>
+                    <Popconfirm
+                        icon={<Icon type="delete" style={{ color: 'red' }} />}
+                        title="Deseja mesmo descartar a reserva ?"
+                        okText="Sim" cancelText="Não"
+                        onConfirm={handleRemoveReservation}
+                    >
+                        <Button loading={deleteRequest} type='danger'> Descartar reserva</Button>
+                    </Popconfirm>
                     <Button > Editar reserva</Button>
                     <Button type='primary' onClick={() => {
                         setModal(true)
@@ -184,11 +205,11 @@ export default function ModalReservationDetails(props) {
                 >
                     <div>
                         Finalizar reserva por
-                        <span style={{color: '#08bf08', marginLeft: '10px'}}>
+                        <span style={{ color: '#08bf08', marginLeft: '10px' }}>
                             {getReservationPriceFormatted(reservation, systemParking)}
                         </span>
                     </div>
-                    <Divider>Ou</Divider>
+                    <Divider>Ou insira o valor</Divider>
                     <IntlCurrencyInput
                         style={{ maxWidth: '200px' }}
                         className='custom-input'
@@ -202,7 +223,7 @@ export default function ModalReservationDetails(props) {
 
                     <Button
                         loading={requestLoading}
-                        style={{marginTop: '20px'}}
+                        style={{ marginTop: '20px' }}
                         type='primary'
                         onClick={handlefinalizedReservation}
                     > Finalizar</Button>
