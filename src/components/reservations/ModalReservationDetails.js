@@ -40,7 +40,7 @@ export default function ModalReservationDetails(props) {
         setDeleteRequest(true)
         dispatch(removeReservation({ reserva: reservation._id })).then(res => {
             deleteRequest(false);
-            if(res){
+            if (res) {
                 onCancel();
                 notification.success({
                     message: `Reserva descartada com sucesso`
@@ -84,7 +84,7 @@ export default function ModalReservationDetails(props) {
                     {reservation.tipo}
                 </p>
 
-                <Row type='flex' gutter={22}>
+                <Row type='flex' align='middle' gutter={22}>
                     <Col md={12}>
                         <Card.Meta
                             style={{ width: '100%' }}
@@ -130,7 +130,7 @@ export default function ModalReservationDetails(props) {
 
                     </Col>
                 </Row>
-                <Row type='flex' align='middle' style={{ marginTop: '30px', marginBottom: '20px' }}>
+                <Row type='flex' align='middle' style={{ marginTop: '30px', marginBottom: '20px' }} gutter={22}>
                     <Col md={12}>
                         <Card.Meta
                             style={{ width: '100%' }}
@@ -164,10 +164,9 @@ export default function ModalReservationDetails(props) {
                                 </span>
                             }
                         />
-
                     </Col>
                 </Row>
-                <div style={{ display: 'flex', justifyContent: 'space-between', margin: '40px auto 0 auto', width: '430px' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', margin: '40px auto 0 auto', width: '430px' }}>
                     <Popconfirm
                         icon={<Icon type="delete" style={{ color: 'red' }} />}
                         title="Deseja mesmo descartar a reserva ?"
@@ -176,8 +175,7 @@ export default function ModalReservationDetails(props) {
                     >
                         <Button loading={deleteRequest} type='danger'> Descartar reserva</Button>
                     </Popconfirm>
-                    <Button > Editar reserva</Button>
-                    <Button type='primary' onClick={() => {
+                    <Button type='primary' style={{ marginLeft: '20px' }} onClick={() => {
                         setModal(true)
                     }}> Finalizar reserva</Button>
                 </div>

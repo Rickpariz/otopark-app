@@ -232,13 +232,6 @@ export default function ManageGarage(props) {
                         return <FormReservation {...router} {...props} type='create' />
                     }}
                 />
-
-                <ReactRouter.Route
-                    path={['/dashboard/garagem/reserva/editar/:reservation']}
-                    render={(router) => {
-                        return <FormReservation {...props} {...router} type='update' />
-                    }}
-                />
             </ReactRouter.Switch>
         </>
     )
