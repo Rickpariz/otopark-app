@@ -44,6 +44,7 @@ export default function ManageGarage(props) {
         })
     }, [dispatch, systemParking])
 
+    console.log(lots);
     const lotClick = (lot) => {
         if (lot.status) {
             history.push({

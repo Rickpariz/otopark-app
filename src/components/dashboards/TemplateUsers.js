@@ -6,6 +6,7 @@ import ManageCustomers from '../customers/ManageCustomers';
 import ManageVehicles from '../vehicles/ManageVehicles';
 import ManageGarage from '../garage/ManageGarage';
 import Settings from '../users/Settings';
+import ManageReservations from '../reservations/ManageReservations';
 
 const { Header, Content, Footer, Sider } = Layout;
 // const { SubMenu } = Menu;
@@ -40,15 +41,19 @@ export default function TemplateUsers(props) {
                         <Icon type="container" />
                         <span className="nav-text">Garagem</span>
                     </Menu.Item>
-                    <Menu.Item key="3" onClick={() => history.push('/dashboard/clientes')}>
+                    <Menu.Item key="3" onClick={() => history.push('/dashboard/reservas')}>
+                        <Icon type="database" />
+                        <span className="nav-text">Reservas</span>
+                    </Menu.Item>
+                    <Menu.Item key="4" onClick={() => history.push('/dashboard/clientes')}>
                         <Icon type="user" />
                         <span className="nav-text">Clientes</span>
                     </Menu.Item>
-                    <Menu.Item key="4" onClick={() => history.push('/dashboard/veiculos')}>
+                    <Menu.Item key="5" onClick={() => history.push('/dashboard/veiculos')}>
                         <Icon type="car" />
                         <span className="nav-text">Veiculos</span>
                     </Menu.Item>
-                    <Menu.Item key="5" onClick={() => history.push('/dashboard/configuracoes')}>
+                    <Menu.Item key="6" onClick={() => history.push('/dashboard/configuracoes')}>
                         <Icon type="setting" />
                         <span className="nav-text">Configurações</span>
                     </Menu.Item>
@@ -63,6 +68,7 @@ export default function TemplateUsers(props) {
                         )}/>
 
                         <Route path='/dashboard/garagem' component={ManageGarage}/>
+                        <Route path='/dashboard/reservas' component={ManageReservations}/>
                         <Route path='/dashboard/funcionarios' component={ManageEmployees}/>
                         <Route path='/dashboard/clientes' component={ManageCustomers}/>
                         <Route path='/dashboard/veiculos' component={ManageVehicles}/>

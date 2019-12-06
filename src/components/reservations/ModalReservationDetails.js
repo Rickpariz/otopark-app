@@ -39,7 +39,7 @@ export default function ModalReservationDetails(props) {
     const handleRemoveReservation = () => {
         setDeleteRequest(true)
         dispatch(removeReservation({ reserva: reservation._id })).then(res => {
-            deleteRequest(false);
+            setDeleteRequest(false);
             if (res) {
                 onCancel();
                 notification.success({
