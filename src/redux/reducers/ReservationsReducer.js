@@ -25,6 +25,9 @@ export const ReservationsReducer = (state = initialState, action) => {
             const newList = newState.list.filter(r => r._id != action.payload.toString());
             newState.list = newList;
             return newState;
+        case 'RESERVATIONS_CLEAR':
+            newState.list = [];
+            return newState;
         default:
             return state;
     }

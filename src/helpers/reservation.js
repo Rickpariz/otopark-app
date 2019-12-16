@@ -13,13 +13,13 @@ export const RESERVATION_TYPE = {
     MENSAL: 'Mensal'
 }
 
-export const getReservationDuration = (reservation) => {
-    let diffDuration = moment.duration(moment().diff(moment(reservation.entrada), 'seconds'), 'seconds');
+export const getReservationDuration = (reservation, closed = false) => {
+    let diffDuration = moment.duration(moment(closed ? reservation.saida : new Date()).diff(moment(reservation.entrada), 'seconds'), 'seconds');
     return diffDuration;
 }
 
-export const getReservationDurationFormatted = (reservation) => {
-    let diffDuration = getReservationDuration(reservation);
+export const getReservationDurationFormatted = (reservation, closed = false) => {
+    let diffDuration = getReservationDuration(reservation, closed);
 
     if (diffDuration._data.days > 0) {
         return moment(diffDuration._data).format('DD [Dias] HH[h] mm[m] ')

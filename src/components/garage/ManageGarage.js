@@ -42,9 +42,13 @@ export default function ManageGarage(props) {
         })).then(res => {
             setGetReservationsLoading(false);
         })
+
+        return () => {
+            dispatch({ type: 'RESERVATIONS_CLEAR'})
+        }
     }, [dispatch, systemParking])
 
-    console.log(lots);
+
     const lotClick = (lot) => {
         if (lot.status) {
             history.push({

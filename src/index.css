@@ -99,3 +99,38 @@ code {
 .card-filter {
   margin-bottom: 30px
 }
+
+.card-reservation {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px 10px;
+  width: 390px;
+  margin: 10px;
+  box-shadow: 3px -1px 16px 0px #d4d4d4;
+}
+
+.card-reservation .title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.card-reservation .price {
+  font-size: 30px;
+  font-weight: 700;
+  color: #52c41a;
+}
+
+.card-reservation .text-secondary {
+  font-size: 18px;
+  color: #aaaaaa;
+}
+
+.nowrap-one-line-ellipsis {
+  display: block;
+  display: -webkit-box;
+  line-height: 1;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
