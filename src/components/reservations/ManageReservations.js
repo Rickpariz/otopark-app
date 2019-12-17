@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography, Icon, Divider, Tooltip, Button } from 'antd'
+import { Typography, Icon, Divider, Tooltip, Button, Spin } from 'antd'
 import { getReservations } from '../../handlers/reservations';
 import { RESERVATION_STATUS, getReservationDurationFormatted } from '../../helpers/reservation';
 import { getFormattedMoney } from '../../helpers/money';
-import InfiniteScroll from 'react-infinite-scroller';
 
 const { Title } = Typography;
 
 export default function ManageReservations() {
 
     const dispatch = useDispatch();
-
     const systemParking = useSelector(state => state.system.parking);
     const reservations = useSelector(state => state.reservations.list);
 
@@ -24,15 +22,15 @@ export default function ManageReservations() {
         }
 
         effectReservation();
-
         return () => dispatch({ type: 'RESERVATIONS_CLEAR' })
     }, [dispatch])
 
     return (
         <div>
             <div className='d-flex justify-content-start'>
-                <Title level={2}>Reservas fechadas</Title>
+                {/* <Title level={2}>Reservas fechadas</Title> */}
             </div>
+            
             <div className='row align-items-start'>
                 {reservations.map(r => <CardReservation key={r._id} reservation={r} />)}
             </div>
@@ -74,7 +72,7 @@ function CardReservation(props) {
                     </span>
                 </Tooltip>
             </div>
-            {!seeMore && 
+            {!seeMore &&
                 <div className='d-flex justify-content-center mt-2'>
                     <Button type='link' onClick={() => setSeeMore(true)}>Mais informações</Button>
                 </div>
@@ -86,7 +84,6 @@ function CardReservation(props) {
                     <div className='d-flex align-items-center mt-2'>
                         <div className='d-flex justify-content-between container align-items-center'>
                             <Tooltip placement="topLeft" title="Modelo do veículo" arrowPointAtCenter>
-                                {/* <Icon type="car" style={{ fontSize: 18, marginRight: 10 }} /> */}
                                 <span className='title'>{veiculo.modelo}</span>
                             </Tooltip>
 
