@@ -93,6 +93,18 @@ function CardReservation(props) {
                             </Tooltip>
                         </div>
                     </div>
+                    <div className='d-flex align-items-center mt-3'>
+                        <div className='d-flex justify-content-between container align-items-center'>
+                            <Tooltip placement="topLeft" title="Nome do cliente" arrowPointAtCenter>
+                                <span className='title'>{cliente.nome}</span>
+                            </Tooltip>
+
+                            <Tooltip placement="topLeft" title="Telefone do cliente" arrowPointAtCenter>
+                                <Icon type="phone" style={{ fontSize: 18, marginRight: 10 }} />
+                                <span className='text-secondary'>{cliente.telefone}</span>
+                            </Tooltip>
+                        </div>
+                    </div>
                     <div className='d-flex justify-content-center mt-2'>
                         <Button type='link' onClick={() => setSeeMore(false)}>Menos informações</Button>
                     </div>
