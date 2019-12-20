@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Modal, Tooltip, Row, Col, Card, Button, Icon, Divider, notification, Popconfirm } from 'antd';
 import { getReservationDurationFormatted, getReservationPrice, getReservationPriceFormatted } from '../../helpers/reservation';
 import Moment from '../../helpers/CustomMoment';

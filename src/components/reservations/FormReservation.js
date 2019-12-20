@@ -5,7 +5,6 @@ import { getCustomers } from '../../handlers/customers';
 import { getLots } from '../../handlers/lots';
 import { colors } from '../../helpers/vehicles';
 import { getTablePrices } from '../../handlers/tableprice';
-import { getFormattedMoney } from '../../helpers/money';
 import { getVehicles } from '../../handlers/vehicles';
 import { createReservation } from '../../handlers/reservations';
 
@@ -58,7 +57,7 @@ function FormReservation(props) {
 
     const findCustomer = () => {
         const rg = form.getFieldValue('rg');
-        if(rg && rg != ''){
+        if(rg && rg !== ''){
             const c = customers.find(c => c.rg === rg);
             setCustomer(c || null);
         }
@@ -86,15 +85,6 @@ function FormReservation(props) {
                         message: 'Reserva criada com sucesso'
                     })
                 }
-            }
-        })
-    }
-
-    const update = () => {
-        form.validateFields((err, values) => {
-            if (!err) {
-                // setRequestLoading(true);
-
             }
         })
     }

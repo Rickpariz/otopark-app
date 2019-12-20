@@ -22,7 +22,7 @@ export const ReservationsReducer = (state = initialState, action) => {
             newState.list[index] = action.payload
             return newState;
         case 'RESERVATIONS_DELETE': 
-            const newList = newState.list.filter(r => r._id != action.payload.toString());
+            const newList = newState.list.filter(r => r._id !== action.payload.toString());
             newState.list = newList;
             return newState;
         case 'RESERVATIONS_CLEAR':

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Spin, Popover, Icon, Avatar, Card, Modal, Row, Col, Tooltip, Switch, Input, Select } from 'antd';
+import { Button, Spin, Icon, Tooltip, Switch, Input, Select } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLots } from '../../handlers/lots';
 import * as ReactRouter from 'react-router-dom';
@@ -71,7 +71,7 @@ export default function ManageGarage(props) {
             let list = lotsCompleted;
 
             // filtrando por informações do cliente
-            if(customerFilter && customerFilter != ''){
+            if(customerFilter && customerFilter !== ''){
                 list = lotsCompleted.filter(l => {
                     const reservation = reservations.find(r => r.vaga._id === l._id);
                     return reservation.cliente.nome.match(new RegExp(customerFilter, 'gi')) || reservation.cliente.telefone.match(new RegExp(customerFilter, 'gi')) || reservation.cliente.rg.match(new RegExp(customerFilter, 'gi'));
@@ -111,7 +111,7 @@ export default function ManageGarage(props) {
     }
 
     const renderCards = (lot) => {
-        const reservation = reservations.find(r => r.vaga._id == lot._id);
+        const reservation = reservations.find(r => r.vaga._id === lot._id);
         
         console.log(reservation)
         return (
@@ -133,7 +133,7 @@ export default function ManageGarage(props) {
     }
 
     const renderVehicle = (lot) => {
-        const reservation = reservations.find(r => r.vaga._id == lot._id);
+        const reservation = reservations.find(r => r.vaga._id === lot._id);
 
         if (reservation) {
             return (

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography, Icon, Divider, Tooltip, Button, Spin } from 'antd'
+import { Icon, Divider, Tooltip, Button } from 'antd'
 import { getReservations } from '../../handlers/reservations';
 import { RESERVATION_STATUS, getReservationDurationFormatted } from '../../helpers/reservation';
 import { getFormattedMoney } from '../../helpers/money';
-
-const { Title } = Typography;
 
 export default function ManageReservations() {
 
@@ -23,15 +21,15 @@ export default function ManageReservations() {
 
         effectReservation();
         return () => dispatch({ type: 'RESERVATIONS_CLEAR' })
-    }, [dispatch])
+    }, [dispatch, systemParking])
 
     return (
         <div>
             <div className='d-flex justify-content-start'>
                 {/* <Title level={2}>Reservas fechadas</Title> */}
             </div>
-            
-            <div className='row align-items-start'>
+
+            <div className='row align-items-start justify-content-center'>
                 {reservations.map(r => <CardReservation key={r._id} reservation={r} />)}
             </div>
         </div>
@@ -47,30 +45,31 @@ function CardReservation(props) {
 
     return (
         <div className='card-reservation'>
-            <div className='d-flex justify-content-between align-items-center container'>
+            <div className='row justify-content-between align-items-center container'>
                 <Tooltip placement="topLeft" title="Código da vaga" arrowPointAtCenter>
                     <span className='title nowrap-one-line-ellipsis'>{vaga.codigo}</span>
                 </Tooltip>
 
-                <Tooltip placement="topLeft" title="Tipo da reserva" arrowPointAtCenter>
+                <Tooltip placement="topLeft" title="Tipo da reserva" arrowPointAtCenter className='d-flex align-items-center justify-content-center'>
                     <Icon type="tag" style={{ fontSize: 18, marginRight: 10 }} />
                     <span className='text-secondary'>{reservation.tipo}</span>
                 </Tooltip>
             </div>
             <Divider />
-            <div className='d-flex align-items-center justify-content-around'>
-                <span className='price'>
+            <div className='row align-items-center justify-content-lg-around justify-content-sm-center text-center'>
+                <div className='col-sm-12 col-lg-6 price'>
                     <Tooltip placement="topLeft" title="Preço final da reserva" arrowPointAtCenter>
                         {getFormattedMoney(reservation.preco)}
                     </Tooltip>
-                </span>
+                </div>
 
-                <Tooltip placement="topLeft" title="Duração da reserva" arrowPointAtCenter>
-                    <Icon type="hourglass" style={{ fontSize: 18, marginRight: 5 }} />
-                    <span className='text-secondary'>
+                <div className='col-sm-12 col-lg-6 text-secondary'>
+                    <Tooltip placement="topLeft" title="Duração da reserva" arrowPointAtCenter className='d-flex align-items-center justify-content-center'>
+                        <Icon type="hourglass" style={{ fontSize: 18, marginRight: 5 }} />
                         {getReservationDurationFormatted(reservation, true)}
-                    </span>
-                </Tooltip>
+                    </Tooltip>
+                </div>
+
             </div>
             {!seeMore &&
                 <div className='d-flex justify-content-center mt-2'>
@@ -87,7 +86,7 @@ function CardReservation(props) {
                                 <span className='title'>{veiculo.modelo}</span>
                             </Tooltip>
 
-                            <Tooltip placement="topLeft" title="Tipo da reserva" arrowPointAtCenter>
+                            <Tooltip placement="topLeft" title="Tipo da reserva" arrowPointAtCenter className='d-flex align-items-center justify-content-center'>
                                 <Icon type="barcode" style={{ fontSize: 18, marginRight: 10 }} />
                                 <span className='text-secondary'>{veiculo.placa}</span>
                             </Tooltip>
@@ -99,7 +98,7 @@ function CardReservation(props) {
                                 <span className='title'>{cliente.nome}</span>
                             </Tooltip>
 
-                            <Tooltip placement="topLeft" title="Telefone do cliente" arrowPointAtCenter>
+                            <Tooltip placement="topLeft" title="Telefone do cliente" arrowPointAtCenter className='d-flex align-items-center justify-content-center'>
                                 <Icon type="phone" style={{ fontSize: 18, marginRight: 10 }} />
                                 <span className='text-secondary'>{cliente.telefone}</span>
                             </Tooltip>

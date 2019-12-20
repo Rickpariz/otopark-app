@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Title from 'antd/lib/typography/Title'
-import { Row, Col, Button, Modal, Input, InputNumber, message } from 'antd';
+import { Row, Col, Button, Modal, Input, message } from 'antd';
 import { getFormattedMoney, currencyConfig } from '../../helpers/money';
 import { updateCustomerLooseConfigs, updateCustomerDayConfigs } from '../../handlers/parkings';
 import IntlCurrencyInput from "react-intl-currency-input"
@@ -17,8 +17,6 @@ export default function Settings() {
     const [modalConfigDay, setModalConfigDay] = useState(false);
     const [timeDay, setTimeDay] = useState('');
     
-    console.log(systemParking);
-
     const clearState = () => {
         setHoraFixa('');
         sethoraExcedente('');
@@ -26,7 +24,7 @@ export default function Settings() {
     }
 
     const handleUpdateConfig = () => {
-        if(!horaFixa || !horaExcedente || tolerancia == '') message.error('Preencha todas as informações');
+        if(!horaFixa || !horaExcedente || tolerancia === '') message.error('Preencha todas as informações');
         else {
             setRequestLoading(true);
             dispatch(updateCustomerLooseConfigs({
@@ -46,7 +44,7 @@ export default function Settings() {
     }
 
     const handleUpdateConfigDay = () => {
-        if(timeDay == '' || !horaFixa || !horaExcedente || tolerancia == '') message.error('Preencha todas as informações');
+        if(timeDay === '' || !horaFixa || !horaExcedente || tolerancia === '') message.error('Preencha todas as informações');
         else {
             setRequestLoading(true);
             dispatch(updateCustomerDayConfigs({

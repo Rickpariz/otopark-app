@@ -104,7 +104,7 @@ code {
   background-color: white;
   border-radius: 10px;
   padding: 20px 10px;
-  width: 390px;
+  width: 100%;
   margin: 10px;
   box-shadow: 3px -1px 16px 0px #d4d4d4;
 }
@@ -125,6 +125,12 @@ code {
   color: #aaaaaa;
 }
 
+/* UTILS */
+
+.text-center { 
+  text-align: center;
+}
+
 .nowrap-one-line-ellipsis {
   display: block;
   display: -webkit-box;
@@ -133,4 +139,20 @@ code {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* DESKTOP */
+@media (min-width: 901px) 
+{
+  .card-reservation{
+    width: 31% !important;
+  }
+}
+
+/* TABLET */
+@media (min-width: 601px) and (max-width: 900px) 
+{
+  .card-reservation{
+    width: 40% !important;
+  }
 }
