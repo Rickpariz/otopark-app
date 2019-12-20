@@ -85,7 +85,7 @@ export default function Settings() {
                     </div>
                 </Col>
                 <Col md={12}>
-                    <div className='card-white' style={{ flexDirection: 'column' }}>
+                    <div className='card-white mt-2 mt-lg-0' style={{ flexDirection: 'column' }}>
                         <Title level={4}> Reservas diarias </Title>
 
                         {!systemParking.diario ?

@@ -153,38 +153,41 @@ export default function ManageGarage(props) {
     return (
         <>
             <div className='card-filter'>
-                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}> 
-                    Filtros:
-                    <div>
+                <div className='container-fluid row m-0  p-0 justify-content-lg-between align-items-lg-center'> 
+                    <div className='col-sm-12 col-lg-2 text-center'>Filtros:</div>
+                    <div className='col-sm-12 col-lg-2 justify-content-sm-center mt-2 mt-lg-0'>
                         <Tooltip placement="topLeft" title="Filtre por nome, rg e telefone do cliente" arrowPointAtCenter>
                             <Input
                                 value={customerFilter}
                                 placeholder="Clientes"
-                                style={{width: '200px', marginRight: '10px'}}
+                                // style={{width: '200px', marginRight: '10px'}}
                                 onChange={(e) => setCustomerFilter(e.target.value)}
                             />
                         </Tooltip>
-
+                    </div>
+                    <div className='col-sm-12 col-lg-2 justify-content-sm-center mt-2 mt-lg-0'>
                         <Tooltip placement="topLeft" title="Filtre por placa e modelo do veículo" arrowPointAtCenter>
                             <Input
                                 value={placaFilter}
                                 placeholder="Veículos"
-                                style={{width: '200px'}}
+                                // style={{width: '200px'}}
                                 onChange={(e) => setPlacaFilter(e.target.value)}
                             />
                         </Tooltip>
-                        
+                    </div>
+                    <div className='col-sm-12 col-lg-2 justify-content-sm-center mt-2 mt-lg-0'>
                         <Select
                             value={colorFilter}
                             placeholder="Selecione a cor"
-                            style={{minWidth: '200px', marginLeft: '10px', marginRight: '10px'}}
+                            style={{minWidth: '100%'}}
                             onChange={(value) => setColorFilter(value)}
                         >
                             {colors.map((c, index) => (
                                 <Select.Option key={c.value} value={c.value}>{getCircleColor(c.value, c.name)}</Select.Option>
                             ))}
                         </Select>
-
+                    </div>
+                    <div className='col-sm-12 col-lg-2 text-center mt-2 mt-lg-0'>
                         <Button type="link" onClick={() => { 
                             setColorFilter(undefined);
                             setPlacaFilter('');
@@ -193,7 +196,7 @@ export default function ManageGarage(props) {
                             Limpar filtros
                         </Button>
                     </div>
-                    <div>
+                    <div className='col-sm-12 col-lg-2 text-center mt-2 mt-lg-0'>
                         <Switch
                             style={{ marginRight: '12px' }}
                             checkedChildren={<Icon type="container" />}
