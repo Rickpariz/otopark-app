@@ -57,7 +57,7 @@ function FormReservation(props) {
 
     const findCustomer = () => {
         const rg = form.getFieldValue('rg');
-        if(rg && rg !== ''){
+        if (rg && rg !== '') {
             const c = customers.find(c => c.rg === rg);
             setCustomer(c || null);
         }
@@ -79,7 +79,7 @@ function FormReservation(props) {
                     vaga: lotSelected
                 }));
 
-                if(res){
+                if (res) {
                     goBack();
                     notification.success({
                         message: 'Reserva criada com sucesso'
@@ -106,9 +106,9 @@ function FormReservation(props) {
         <Modal visible={modal} title={title} width="590px" onCancel={goBack} footer={null}>
             <Spin spinning={false}>
                 <Form>
-                    <Row gutter={22} type='flex' justify="center">
+                    <div className='row p-0 m-0'>
                         {!lotSelected &&
-                            <Col md={4}>
+                            <div className='col-sm-12 col-lg-4 px-1'> 
                                 <Form.Item label="Vaga">
                                     {getFieldDecorator('vaga', {
                                         initialValue: lotSelected,
@@ -123,10 +123,10 @@ function FormReservation(props) {
                                         </Select>
                                     )}
                                 </Form.Item>
-                            </Col>
+                            </div>
                         }
 
-                        <Col md={8}>
+                        <div className='col-sm-12 col-lg-4 px-1'>
                             <Form.Item>
                                 {getFieldDecorator('rg', {
                                     initialValue: '',
@@ -138,8 +138,8 @@ function FormReservation(props) {
                                     />
                                 )}
                             </Form.Item>
-                        </Col>
-                        <Col md={8}>
+                        </div>
+                        <div className='col-sm-12 col-lg-4 px-1'>
                             <Form.Item>
                                 {getFieldDecorator('nome', {
                                     initialValue: customer && customer.nome ? customer.nome : '',
@@ -151,8 +151,8 @@ function FormReservation(props) {
                                     />
                                 )}
                             </Form.Item>
-                        </Col>
-                        <Col md={8}>
+                        </div>
+                        <div className='col-sm-12 col-lg-4 px-1'>
                             <Form.Item>
                                 {getFieldDecorator('telefone', {
                                     initialValue: customer && customer.telefone ? customer.telefone : '',
@@ -163,10 +163,10 @@ function FormReservation(props) {
                                     />
                                 )}
                             </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row gutter={22} type='flex' justify="center">
-                        <Col md={8}>
+                        </div>
+                    </div>
+                    <div className='row p-0 m-0'>
+                        <div className=' col-sm-12 col-lg-4 px-1'>
                             <Form.Item>
                                 {getFieldDecorator('placa', {
                                     rules: [{ required: true, message: 'Preencha a placa' }],
@@ -178,8 +178,8 @@ function FormReservation(props) {
                                     />
                                 )}
                             </Form.Item>
-                        </Col>
-                        <Col md={8}>
+                        </div>
+                        <div className=' col-sm-12 col-lg-4 px-1'>
                             <Form.Item>
                                 {getFieldDecorator('modelo', {
                                     initialValue: vehicle && vehicle.modelo ? vehicle.modelo : '',
@@ -190,14 +190,14 @@ function FormReservation(props) {
                                     />
                                 )}
                             </Form.Item>
-                        </Col>
-                        <Col md={8}>
+                        </div>
+                        <div className=' col-sm-12 col-lg-4 px-1'>
                             <Form.Item>
                                 {getFieldDecorator('cor', {
                                     initialValue: vehicle && vehicle.cor ? vehicle.cor : undefined,
                                 })(
                                     <Select
-                                         placeholder="Selecione a cor"
+                                        placeholder="Selecione a cor"
                                     >
                                         {colors.map((c, index) => (
                                             <Select.Option key={c.value} value={c.value}>{getCircleColor(c.value, c.name)}</Select.Option>
@@ -205,15 +205,15 @@ function FormReservation(props) {
                                     </Select>
                                 )}
                             </Form.Item>
-                        </Col>
-                    </Row>
+                        </div>
+                    </div>
                     <Row>
                         <Form.Item>
                             {getFieldDecorator('tipo', {
                                 initialValue: 'Avulsa'
                             })(
                                 <Select
-                                        placeholder="Selecione o tipo de reserva"
+                                    placeholder="Selecione o tipo de reserva"
                                 >
                                     <Select.Option value={'Avulsa'}>Avulsa</Select.Option>
                                     <Select.Option value={'Diaria'}>Diaria</Select.Option>

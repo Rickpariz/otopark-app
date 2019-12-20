@@ -125,6 +125,10 @@ code {
   color: #aaaaaa;
 }
 
+.card-login-parking {
+  width: 100vw;
+}
+
 /* UTILS */
 
 .text-center { 
@@ -147,6 +151,10 @@ code {
   .card-reservation{
     width: 31% !important;
   }
+
+  .card-login-parking {
+    width: 500px;
+  }
 }
 
 /* TABLET */
@@ -154,5 +162,9 @@ code {
 {
   .card-reservation{
     width: 40% !important;
+  }
+
+  .card-login-parking {
+    width: 500px;
   }
 }

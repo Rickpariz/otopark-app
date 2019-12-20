@@ -33,7 +33,7 @@ export default function LoginParking({ history }) {
             alignItems: 'center'
         }}>
             <Spin spinning={requestLoading} style={{ width: '100%' }}>
-                <div style={{ padding: 24, background: '#fff', minWidth: 500, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
+                <div className='card-login-parking' style={{ padding: 24, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                     <Title level={3}>Escolha um estacionamento</Title>
                     <List
                         style={{ width: '100%' }}

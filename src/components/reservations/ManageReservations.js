@@ -45,7 +45,7 @@ function CardReservation(props) {
 
     return (
         <div className='card-reservation'>
-            <div className='row justify-content-between align-items-center container'>
+            <div className='row justify-content-between align-items-center container-fluid pl-2 pr-2 m-0'>
                 <Tooltip placement="topLeft" title="Código da vaga" arrowPointAtCenter>
                     <span className='title nowrap-one-line-ellipsis'>{vaga.codigo}</span>
                 </Tooltip>
