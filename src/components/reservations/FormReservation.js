@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Modal, Form, Input, Row, Col, Icon, Button, Spin, Select, notification } from 'antd'
+import { Modal, Form, Input, Row , Icon, Button, Spin, Select, notification } from 'antd'
 import { useDispatch, useSelector } from 'react-redux';
 import { getCustomers } from '../../handlers/customers';
 import { getLots } from '../../handlers/lots';
