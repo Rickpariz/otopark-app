@@ -51,7 +51,6 @@ export default function LoginParking({ history }) {
                     />
                 </div>
             </Spin>
-
         </div>
     )
 }

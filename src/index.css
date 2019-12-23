@@ -13,6 +13,10 @@ code {
     monospace;
 }
 
+.ant-timeline-item-head {
+  background-color: transparent;
+}
+
 .ant-layout-sider-zero-width-trigger {
   top: 10px !important;
 }
