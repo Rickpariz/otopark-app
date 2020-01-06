@@ -11,7 +11,7 @@ export const ReservationsReducer = (state = initialState, action) => {
             newState.list = newState.list.concat(action.payload);
             return newState;
         case 'RESERVATIONS_GET':
-            newState.list = action.payload;
+            newState.list = [...newState.list].concat(action.payload);
             return newState
         case 'RESERVATIONS_GET_ONE':
             newState.resevation = action.payload;

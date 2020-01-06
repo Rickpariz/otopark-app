@@ -2,17 +2,19 @@ import { base_api_url, Axios } from './config';
 
 export const getReservations = (filters = null) => {
     return (dispatch) => {
-        return Axios.get(`${base_api_url}reservas`, { params: { filters }}).then(({data}) => {
+        return Axios.get(`${base_api_url}reservas`, { params: { filters } }).then(({ data }) => {
+            const { docs } = data;
+
             dispatch({
                 type: 'RESERVATIONS_GET',
-                payload: data
+                payload: docs
             })
 
             return Promise.resolve(data);
         })
-        .catch(err => {
-            console.log(err)
-        })
+            .catch(err => {
+                console.log(err)
+            })
     }
 }
 
@@ -41,9 +43,9 @@ export const createReservation = (values) => {
 
             return Promise.resolve(data);
         })
-        .catch(err => {
-            console.log(err)
-        })
+            .catch(err => {
+                console.log(err)
+            })
     }
 }
 
@@ -57,9 +59,9 @@ export const getReservation = (reservationId) => {
 
             return Promise.resolve(data);
         })
-        .catch(err => {
-            console.log(err)
-        })
+            .catch(err => {
+                console.log(err)
+            })
     }
 }
 
@@ -73,9 +75,9 @@ export const updateReservation = (values) => {
 
             return Promise.resolve(data);
         })
-        .catch(err => {
-            console.log(err)
-        })
+            .catch(err => {
+                console.log(err)
+            })
     }
 }
 
@@ -101,7 +103,7 @@ export const finalizedReservation = (values) => {
 
 export const removeReservation = (values) => {
     return dispatch => {
-        return Axios.delete(`${base_api_url}reservas`, { data: values}).then(({ data }) => {
+        return Axios.delete(`${base_api_url}reservas`, { data: values }).then(({ data }) => {
             dispatch({
                 type: 'RESERVATIONS_DELETE',
                 payload: values.reserva

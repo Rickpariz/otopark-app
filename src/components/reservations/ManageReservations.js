@@ -1,38 +1,77 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Icon, Divider, Tooltip, Button } from 'antd'
+import { Icon, Divider, Tooltip, Button, Spin } from 'antd'
 import { getReservations } from '../../handlers/reservations';
 import { RESERVATION_STATUS, getReservationDurationFormatted } from '../../helpers/reservation';
 import { getFormattedMoney } from '../../helpers/money';
+import InfiniteScroll from 'react-infinite-scroll-component';
+
+
 
 export default function ManageReservations() {
-
+    const limit = 20;
+    var counter = 0;
     const dispatch = useDispatch();
     const systemParking = useSelector(state => state.system.parking);
     const reservations = useSelector(state => state.reservations.list);
+    const [hasMore, setHasMore] = useState(true);
+
+    async function effectReservation() {
+        const response = await dispatch(getReservations({
+            estacionamento: systemParking._id,
+            status: RESERVATION_STATUS.CLOSED,
+            pagination: {
+                offset: limit * counter, // global variable 
+                limit
+            }
+        }));
+
+        const { hasNextPage } = response;
+        setHasMore(hasNextPage);
+    }
 
     useEffect(() => {
-        async function effectReservation() {
-            await dispatch(getReservations({
-                estacionamento: systemParking._id,
-                status: RESERVATION_STATUS.CLOSED
-            }));
-        }
-
-        effectReservation();
+        if(reservations.length === 0) effectReservation();
+        
         return () => dispatch({ type: 'RESERVATIONS_CLEAR' })
-    }, [dispatch, systemParking])
+    }, [])
+
+    const fetchMoreData = () => {
+        counter++;
+        effectReservation();
+    };
 
     return (
         <div>
             <div className='d-flex justify-content-start'>
                 {/* <Title level={2}>Reservas fechadas</Title> */}
             </div>
+            {/* <div className='row align-items-start justify-content-center'> */}
+                <InfiniteScroll
+                    className='row align-items-start justify-content-center'
+                    dataLength={reservations.length}
+                    next={fetchMoreData}
+                    hasMore={hasMore}
+                    loader={
+                        <div className='d-flex container justify-content-center mt-3'>
+                            <Spin />
+                        </div>
+                    }
+                    endMessage={
+                        <div className='d-flex container justify-content-center mt-3' style={{
+                            fontSize: '20px',
+                            fontWeight: 600,
+                            color: '#a09898'
+                        }}>
+                            Todas reservas foram listadas &#128516;
+                        </div>
+                    }
+                >
+                    {reservations.map(r => <CardReservation key={r._id} reservation={r} />)}
+                </InfiniteScroll>
+            {/* </div> */}
 
-            <div className='row align-items-start justify-content-center'>
-                {reservations.map(r => <CardReservation key={r._id} reservation={r} />)}
-            </div>
-        </div>
+        </div >
     )
 }
 

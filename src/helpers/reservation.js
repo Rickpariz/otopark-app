@@ -1,5 +1,5 @@
 import moment from "moment";
-import { getFormattedMoney } from "./money";
+import { getFormattedMoney, getMoney } from "./money";
 
 export const RESERVATION_STATUS = {
     OPEN: 'Aberta',
@@ -54,7 +54,7 @@ export const getReservationPrice = (reservation, parking) => {
         const durationWithTolerance = moment.duration({ hours: 1, minutes: configAvulso.tolerancia });
         if(duration.asMilliseconds() < durationWithTolerance.asMilliseconds()){
             // PAGAMENTO DA HORA FIXA
-            price = getFormattedMoney(configAvulso.horaFixa);
+            price = getMoney(configAvulso.horaFixa);
         } else {
             let diffDuration = duration.asSeconds() - moment.duration({ hours: 1}).asSeconds();
             let diffMoment = moment.duration(diffDuration, 'seconds');
@@ -68,7 +68,7 @@ export const getReservationPrice = (reservation, parking) => {
         const durationWithTolerance = moment.duration({ hours: configDiaria.tempo, minutes: configDiaria.tolerancia });
         if(duration.asMilliseconds() < durationWithTolerance.asMilliseconds()){
             // PAGAMENTO DA DIARIA
-            price = getFormattedMoney(configDiaria.precoDiaria);
+            price = getMoney(configDiaria.precoDiaria);
         } else {
             let diffDuration = duration.asSeconds() - moment.duration({ hours: configDiaria.tempo}).asSeconds();
             let diffMoment = moment.duration(diffDuration, 'seconds');
