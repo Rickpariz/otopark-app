@@ -2,8 +2,8 @@ import axios from 'axios';
 import qs from 'qs';
 import { notification } from 'antd';
 
- const base_api_url = 'http://localhost:3003/';
-//const base_api_url = "https://otoparkapi.herokuapp.com/";
+// const base_api_url = 'http://localhost:3003/';
+const base_api_url = "https://otoparkapi.herokuapp.com/";
 
 const Axios = axios;
 Axios.defaults.headers.common = {
