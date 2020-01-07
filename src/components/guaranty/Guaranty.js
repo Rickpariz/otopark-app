@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Spin, InputNumber, Input, Button, Timeline, Icon, Tooltip } from 'antd';
 import Title from 'antd/lib/typography/Title';
 import { Axios, base_api_url } from '../../handlers/config';
-import { getReservationDurationFormatted } from '../../helpers/reservation';
+import { getReservationDurationFormatted, RESERVATION_STATUS } from '../../helpers/reservation';
 import Moment from '../../helpers/CustomMoment';
+import {getFormattedMoney} from '../../helpers/money';
 
 export default function Guaranty(props) {
     const { parkingId } = props.match.params;
@@ -93,7 +94,12 @@ export default function Guaranty(props) {
                                     <Tooltip placement="topLeft" title="Duração da reserva" arrowPointAtCenter>
                                         <h4 style={{ fontSize: 20, textAlign: 'center' }}>{getReservationDurationFormatted(reservation)}</h4>
                                     </Tooltip>
-
+                                    {reservation.status==RESERVATION_STATUS.CLOSED &&
+                                        <div>
+                                            <h3 style={{ textAlign: 'left'}}>Preço pago:</h3>
+                                            <h3 style={{ textAlign: 'right', color: '#90ee90', position: 'relative', bottom  : '30px'}}>{getFormattedMoney(reservation.preco)}</h3>
+                                        </div>
+                                    }
                                     <div className='d-flex align-items-center mt-3'>
                                         <div className='d-flex justify-content-between container align-items-center'>
                                             <Tooltip placement="topLeft" title="Modelo do veículo" arrowPointAtCenter className='d-flex align-items-center justify-content-center'>
