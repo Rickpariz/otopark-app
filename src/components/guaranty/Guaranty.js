@@ -95,9 +95,8 @@ export default function Guaranty(props) {
                                         <h4 style={{ fontSize: 20, textAlign: 'center' }}>{getReservationDurationFormatted(reservation)}</h4>
                                     </Tooltip>
                                     {reservation.status==RESERVATION_STATUS.CLOSED &&
-                                        <div>
-                                            <h3 style={{ textAlign: 'left'}}>Preço pago:</h3>
-                                            <h3 style={{ textAlign: 'right', color: '#90ee90', position: 'relative', bottom  : '30px'}}>{getFormattedMoney(reservation.preco)}</h3>
+                                        <div className='text-center'>
+                                            <h3> Preço pago: <span style={{ color: '#90ee90', marginLeft: '10px'}}>{getFormattedMoney(reservation.preco)}</span></h3>
                                         </div>
                                     }
                                     <div className='d-flex align-items-center mt-3'>
