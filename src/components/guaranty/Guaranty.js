@@ -5,6 +5,7 @@ import { Axios, base_api_url } from '../../handlers/config';
 import { getReservationDurationFormatted, RESERVATION_STATUS } from '../../helpers/reservation';
 import Moment from '../../helpers/CustomMoment';
 import {getFormattedMoney} from '../../helpers/money';
+import {getFormattedRg} from '../../helpers/formatters'
 
 export default function Guaranty(props) {
     const { parkingId } = props.match.params;
@@ -99,6 +100,11 @@ export default function Guaranty(props) {
                                             <h3> Preço pago: <span style={{ color: '#90ee90', marginLeft: '10px'}}>{getFormattedMoney(reservation.preco)}</span></h3>
                                         </div>
                                     }
+                                    <div className='text-center'>
+                                    <h3> Nome: <span style={{ marginLeft: '10px'}}>{reservation.cliente.nome}</span></h3>
+                                    <h3> RG: <span style={{ marginLeft: '10px'}}>{getFormattedRg(reservation.cliente.rg)}</span></h3>
+                                    <h3> Saida: <span style={{marginLeft: '10px'}}>{Moment(reservation.saida).format('lll')}</span></h3>
+                                    </div>
                                     <div className='d-flex align-items-center mt-3'>
                                         <div className='d-flex justify-content-between container align-items-center'>
                                             <Tooltip placement="topLeft" title="Modelo do veículo" arrowPointAtCenter className='d-flex align-items-center justify-content-center'>
@@ -111,6 +117,9 @@ export default function Guaranty(props) {
                                                 <span className='text-secondary'>{veiculo.placa}</span>
                                             </Tooltip>
                                         </div>
+                                    </div>
+                                    <div className='text-center mt-3'>
+                                    <h6 >{parking.nome} - {parking.endereco}</h6>
                                     </div>
                                 </div>
                             </Timeline.Item>
