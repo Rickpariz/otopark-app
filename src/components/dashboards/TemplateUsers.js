@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector, useDispach} from 'react-redux';
 import { Layout, Menu, Icon, Typography } from 'antd';
 import { Route, Switch } from 'react-router-dom';
 import ManageEmployees from '../users/ManageEmployees';
@@ -13,7 +14,7 @@ const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
 
 export default function TemplateUsers(props) {
-
+    const userLogged = useSelector(store => store.system.user);
     const { history } = props;
 
     return (
@@ -33,10 +34,10 @@ export default function TemplateUsers(props) {
                         <Icon type="dashboard" />
                         <span className="nav-text">Dashboard</span>
                     </Menu.Item>
-                    {/* <Menu.Item key="2" onClick={() => history.push('/dashboard/funcionarios')}>
+                    { <Menu.Item key="2" onClick={() => history.push('/dashboard/funcionarios')}>
                         <Icon type="user" />
                         <span className="nav-text">Funcionários</span>
-                    </Menu.Item> */}
+                    </Menu.Item> }
                     <Menu.Item key="2" onClick={() => history.push('/dashboard/garagem')}>
                         <Icon type="container" />
                         <span className="nav-text">Garagem</span>
@@ -53,10 +54,12 @@ export default function TemplateUsers(props) {
                         <Icon type="car" />
                         <span className="nav-text">Veiculos</span>
                     </Menu.Item>
+                    {userLogged.tipo == 'Dono' && 
                     <Menu.Item key="6" onClick={() => history.push('/dashboard/configuracoes')}>
                         <Icon type="setting" />
                         <span className="nav-text">Configurações</span>
                     </Menu.Item>
+                    }
                 </Menu>
             </Sider>
             <Layout>
