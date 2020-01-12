@@ -5,6 +5,8 @@ import { Row, Col, Button, Modal, Input, message } from 'antd';
 import { getFormattedMoney, currencyConfig } from '../../helpers/money';
 import { updateCustomerLooseConfigs, updateCustomerDayConfigs } from '../../handlers/parkings';
 import IntlCurrencyInput from "react-intl-currency-input"
+import QRCode from 'qrcode.react';
+
 
 export default function Settings() {
     const dispatch = useDispatch();
@@ -99,6 +101,13 @@ export default function Settings() {
                                 <Button type='primary' onClick={() => setModalConfigDay(true)}> Configurar </Button>
                             </div>
                         }
+                    </div>
+                    <div className='card-white mt-2 mt-lg-0' style={{ flexDirection: 'column' }}>
+                        <Title level={4}> QR CODE de acesso aos recibos do cliente </Title>
+                    <div>
+                    <p> Este código qr irá redirecionar os clientes do estacionamento para a página de recibos</p>
+                    <QRCode value={`/comprovantedigital/${systemParking._id}`} />,
+                    </div> 
                     </div>
                 </Col>
             </Row>

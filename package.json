@@ -8,6 +8,7 @@
     "history": "^4.10.1",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.27",
+    "qrcode.react": "^1.0.0",
     "qs": "^6.9.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
