@@ -25,6 +25,14 @@ export default function Settings() {
         setTolerancia('')
     }
 
+    const printDiv= (qrcode)=>{
+        var printContents = document.getElementById(qrcode).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+
     const handleUpdateConfig = () => {
         if(!horaFixa || !horaExcedente || tolerancia === '') message.error('Preencha todas as informações');
         else {
@@ -104,14 +112,15 @@ export default function Settings() {
                     </div>
                     <div className='card-white mt-2 mt-lg-0' style={{ flexDirection: 'column' }}>
                         <Title level={4}> QR CODE de acesso aos recibos do cliente </Title>
-                    <div>
+                    <div id="qrcode">
                     <p> Este código qr irá redirecionar os clientes do estacionamento para a página de recibos</p>
-                    <QRCode value={`/comprovantedigital/${systemParking._id}`} />,
-                    </div> 
+                    <QRCode renderAs='svg'value={`/comprovantedigital/${systemParking._id}`} />
+                    </div>
+                    <Button type='primary' onClick={() =>printDiv('qrcode')}>Imprimir</Button>
                     </div>
                 </Col>
             </Row>
-
+            
             <Modal visible={modalLoose} onCancel={() => {
                 setModalLoose(false);
                 clearState();
