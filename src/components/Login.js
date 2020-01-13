@@ -14,9 +14,7 @@ function Login({ form, history }) {
                 setRequestLoading(true);
                 dispatch(login(values)).then(user => {
                     setRequestLoading(false);
-                    if(user) {
-                        if(user.tipo === 'Dono') history.push('/login/estacionamentos')
-                    }
+                    if(user) history.push('/login/estacionamentos')
                 })
             }
         })

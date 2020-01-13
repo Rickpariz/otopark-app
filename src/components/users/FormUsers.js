@@ -5,7 +5,7 @@ import { createUser, getUser, updateUser } from '../../handlers/users';
 const { Option } = Select;
 
 function FormUsers(props) {
-    const { history, form, type } = props;
+    const { history, form, type, target, title: modalTitle, parking } = props;
     const { getFieldDecorator } = form;
     const dispatch = useDispatch();
     const [modal, setModal] = useState(true);
@@ -34,12 +34,16 @@ function FormUsers(props) {
         form.validateFields((err, values) => {
             if (!err) {
                 setRequestLoading(true);
-                dispatch(createUser(values)).then(res => {
+
+                let body = { ...values };
+                if(target == "owner") body = {  ...body, tipo: "Funcionario", estacionamento: parking }
+
+                dispatch(createUser(body)).then(res => {
                     setRequestLoading(false);
                     if(res){
                         goBack();
                         notification.success({
-                            message: 'Dono cadastrado com sucesso'
+                            message: 'Cadastrado realizado com sucesso'
                         })
                     }
                 });
@@ -51,8 +55,12 @@ function FormUsers(props) {
         form.validateFields((err, values) => {
             if (!err) {
                 setRequestLoading(true);
+
+                let body = { ...values };
+                if(target == "owner") body = {  ...body, tipo: "Funcionario" }
+
                 dispatch(updateUser({
-                    ...values,
+                    ...body,
                     usuario: user._id
                 })).then(res => {
                     setRequestLoading(false);
@@ -69,9 +77,8 @@ function FormUsers(props) {
 
     const title = type === 'create' ? 'Novo dono' : 'Editar dono';
 
-    console.log(user);
     return (
-        <Modal visible={modal} title={title} width="790px" onCancel={goBack} footer={null}>
+        <Modal visible={modal} title={modalTitle || title} width="790px" onCancel={goBack} footer={null}>
             <Spin spinning={false}>
                 <Form>
                     <Row gutter={22}>
@@ -121,19 +128,22 @@ function FormUsers(props) {
                             </Col>
                         }
 
-                        <Col lg={12}>
-                            <Form.Item label="Tipo">
-                                {getFieldDecorator('tipo', {
-                                    initialValue: type === 'update' && user && user.tipo ? user.tipo : undefined,
-                                    rules: [{ required: true, message: 'Preencha o tipo do usuário' }],
-                                })(
-                                    <Select placeholder="Selecione o tipo">
-                                        <Option value="Dono">Dono</Option>
-                                        <Option value="Funcionario">Funcionário</Option>
-                                    </Select>,
-                                )}
-                            </Form.Item>
-                        </Col>
+                        { target !== "owner" && 
+                            <Col lg={12}>
+                                <Form.Item label="Tipo">
+                                    {getFieldDecorator('tipo', {
+                                        initialValue: type === 'update' && user && user.tipo ? user.tipo : undefined,
+                                        rules: [{ required: true, message: 'Preencha o tipo do usuário' }],
+                                    })(
+                                        <Select placeholder="Selecione o tipo">
+                                            <Option value="Dono">Dono</Option>
+                                            <Option value="Funcionario">Funcionário</Option>
+                                        </Select>,
+                                    )}
+                                </Form.Item>
+                            </Col>
+                        }
+                        
                     </Row>
                     <Row type='flex' justify='end' gutter={22}>
                         <Button key="cancelar" onClick={goBack} style={{ marginRight: '10px' }}>

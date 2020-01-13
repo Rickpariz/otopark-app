@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Typography, Table, Row, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsers } from '../../handlers/users';
-// import { Route, Switch } from 'react-router-dom';
-// import FormUsers from './FormUsers';
+import { Route, Switch } from 'react-router-dom';
+import FormUsers from './FormUsers';
 
 const { Title } = Typography;
 const ButtonGroup = Button.Group;
@@ -11,8 +11,11 @@ const ButtonGroup = Button.Group;
 export default function ManageEmployees(props) {
     const { history } = props;
     const dispatch = useDispatch();
-    const users = useSelector(state => state.users.list);
     const [getUsersLoading, setGetUsersLoading] = useState(true);
+
+    const users = useSelector(state => state.users.list);
+    const systemParking = useSelector(state => state.system.parking);
+
 
     useEffect(() => {
         dispatch(getUsers({
@@ -69,21 +72,21 @@ export default function ManageEmployees(props) {
                 ]}
             />
 
-            {/* <Switch>
+            <Switch>
                 <Route
-                    path={['/admin/dashboard/usuarios/novo']}
+                    path={['/dashboard/funcionarios/novo']}
                     render={(router) => {
-                        return <FormUsers {...router} {...props} type='create' />
+                        return <FormUsers {...router} {...props} type='create' target="owner" title="Novo funcionário" parking={systemParking._id} />
                     }}
                 />
 
                 <Route
-                    path={['/admin/dashboard/usuarios/editar/:usuario']}
+                    path={['/dashboard/funcionarios/editar/:usuario']}
                     render={(router) => {
-                        return <FormUsers {...props} {...router} type='update' />
+                        return <FormUsers {...props} {...router} type='update' target="owner" title="Editar funcionário"/>
                     }}
                 />
-            </Switch> */}
+            </Switch>
         </div>
     )
 }

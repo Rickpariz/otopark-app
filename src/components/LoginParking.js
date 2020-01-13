@@ -15,7 +15,7 @@ export default function LoginParking({ history }) {
 
     useEffect(() => {
         dispatch(getParkings({
-            dono: user._id
+            usuario: user._id
         })).then(res => setRequestLoading(false))
     }, [dispatch, user])
 
