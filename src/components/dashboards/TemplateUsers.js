@@ -38,7 +38,7 @@ export default function TemplateUsers(props) {
                         <Icon type="user" />
                         <span className="nav-text">Funcionários</span>
                     </Menu.Item> }
-                    <Menu.Item key="2" onClick={() => history.push('/dashboard/garagem')}>
+                    <Menu.Item key="7" onClick={() => history.push('/dashboard/garagem')}>
                         <Icon type="container" />
                         <span className="nav-text">Garagem</span>
                     </Menu.Item>

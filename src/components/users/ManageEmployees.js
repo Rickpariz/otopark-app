@@ -24,10 +24,10 @@ export default function ManageEmployees(props) {
 
     return (
         <div>
-            <Row type='flex' justify='space-between' align='middle'>
+            <div className='d-flex align-items-center justify-content-between'>
                 <Title level={2}> Gerenciar funcionarios </Title>
-                <Button type="primary" onClick={() => history.push('/dashboard/funcionarios/novo')}>Novo dono</Button>
-            </Row>
+                <Button type="primary" onClick={() => history.push('/dashboard/funcionarios/novo')}>Novo funcionario</Button>
+            </div>
 
             <Table
                 rowKey='_id'
