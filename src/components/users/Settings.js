@@ -31,6 +31,7 @@ export default function Settings() {
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
+        window.location.reload(true); 
     }
 
     const handleUpdateConfig = () => {
